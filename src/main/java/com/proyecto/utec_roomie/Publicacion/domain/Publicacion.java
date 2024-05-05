@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -16,10 +18,10 @@ public class Publicacion {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    Anfitrion anfitrion;
+    @OneToOne(mappedBy = "anfitrion_id")
+    private Anfitrion anfitrion;
 
     @OneToMany
-    Solicitud solicitud;
+    private List<Solicitud> solicitud;
 
 }

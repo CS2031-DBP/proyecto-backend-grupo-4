@@ -13,8 +13,6 @@ import java.util.List;
 @Setter
 public class Roomie extends Estudiante {
     @OneToMany(mappedBy = "roomie", cascade = CascadeType.ALL)
-    private List<Solicitud> invitacionesEnviadas;
-
-
+    private List<Solicitud> solicitudesEnviadas;
 
 }

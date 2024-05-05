@@ -5,6 +5,7 @@ import com.proyecto.utec_roomie.Publicacion.domain.Publicacion;
 import com.proyecto.utec_roomie.Roomie.domain.Roomie;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
