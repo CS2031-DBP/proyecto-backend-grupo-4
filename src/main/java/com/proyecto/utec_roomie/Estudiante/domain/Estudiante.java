@@ -36,9 +36,11 @@ public class Estudiante {
 
     private Date fechaCreacion;
 
-    private Date fechaInicio;
+    private Date fechaActualizacion;
 
-    private Date fechaFin;
+    @DecimalMax("5.0")
+    @DecimalMin("0.0")
+    private Double rating;
 
 
 
