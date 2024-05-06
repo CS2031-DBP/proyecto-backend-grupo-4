@@ -21,7 +21,7 @@ public class Publicacion {
     @OneToOne(mappedBy = "anfitrion_id")
     private Anfitrion anfitrion;
 
-    @OneToMany
+    @OneToMany(mappedBy = "publicacion")
     private List<Solicitud> solicitud;
 
 }

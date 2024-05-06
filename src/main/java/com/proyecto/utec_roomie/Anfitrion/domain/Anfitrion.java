@@ -19,15 +19,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Anfitrion extends Estudiante {
-
-    @OneToMany(mappedBy = "anfitrion")
-    List<Solicitud> invitaciones;
-
     @OneToOne
     Departamento departamento;
 
     @OneToOne
     @JoinColumn(name = "publicacion_id")
     Publicacion publicacion;
-
 }

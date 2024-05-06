@@ -21,6 +21,6 @@ public class Arrendamiento {
     private Date fechaFin;
 
     @OneToOne
-    Solicitud solicitudOrigen;
+    private Solicitud solicitudOrigen;
 
 }
