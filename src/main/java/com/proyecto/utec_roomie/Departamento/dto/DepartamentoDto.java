@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartamentoDTO {
+public class DepartamentoDto {
 
     private Long id;
+    private Double costo;
+    private Integer habitaciones;
 
 }

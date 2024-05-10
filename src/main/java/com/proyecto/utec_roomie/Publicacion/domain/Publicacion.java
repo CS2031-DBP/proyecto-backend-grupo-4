@@ -18,7 +18,8 @@ public class Publicacion {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "anfitrion_id")
+    @OneToOne(mappedBy = "publicacion")
+    @JoinColumn(name = "anfitrion_id")
     private Anfitrion anfitrion;
 
     @OneToMany(mappedBy = "publicacion")

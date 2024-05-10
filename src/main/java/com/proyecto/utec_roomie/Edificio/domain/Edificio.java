@@ -3,6 +3,7 @@ package com.proyecto.utec_roomie.Edificio.domain;
 import com.proyecto.utec_roomie.Departamento.domain.Departamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,8 @@ public class Edificio {
     private Long id;
     private String nombre;
     private Integer pisos;
-    @OneToMany(mappedBy = "edificio")
+
+    @OneToMany
     private List<Departamento> departamentos;
 
 

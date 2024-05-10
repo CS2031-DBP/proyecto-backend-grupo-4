@@ -11,7 +11,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "roomie")
 public class Roomie extends Estudiante {
+
     @OneToMany(mappedBy = "roomie", cascade = CascadeType.ALL)
     private List<Solicitud> solicitudesEnviadas;
 
