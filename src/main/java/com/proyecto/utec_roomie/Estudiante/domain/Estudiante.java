@@ -37,7 +37,6 @@ public class Estudiante {
 
     @Size(min = 9,max = 9)
     private String telefono;
-    private String direccion;
 
     @Column(nullable = false)
     private TipoEstudiante tipoEstudiante;
@@ -46,7 +45,10 @@ public class Estudiante {
     @DecimalMin("0.0")
     private Double rating;
 
+    private Date fecha_de_creacion;
 
+    private Date fechaActualizacion;
 
+    private Date ultima_conexion;
 
 }

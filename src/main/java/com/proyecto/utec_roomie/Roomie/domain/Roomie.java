@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,9 @@ import java.util.List;
 @Table(name = "roomie")
 public class Roomie extends Estudiante {
 
+    private String direccion;
+
     @OneToMany(mappedBy = "roomie", cascade = CascadeType.ALL)
-    private List<Solicitud> solicitudesEnviadas;
+    private List<Solicitud> solicitudesEnviadas = new ArrayList<>();
 
 }

@@ -19,6 +19,8 @@ public class Edificio {
     private String nombre;
     private Integer pisos;
 
+    private String direccion;
+
     @OneToMany
     private List<Departamento> departamentos;
 
