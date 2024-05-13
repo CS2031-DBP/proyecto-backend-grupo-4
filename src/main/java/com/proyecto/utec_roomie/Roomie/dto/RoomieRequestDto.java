@@ -1,18 +1,12 @@
-package com.proyecto.utec_roomie.Anfitrion.dto;
+package com.proyecto.utec_roomie.Roomie.dto;
 
-import com.proyecto.utec_roomie.Departamento.domain.Departamento;
-import com.proyecto.utec_roomie.Departamento.dto.DepartamentoDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
-@Setter
-public class AnfitrionRequestDto {
+public class RoomieRequestDto {
     @NotNull
     @Size(min = 2)
     private String nombre;
@@ -36,6 +30,4 @@ public class AnfitrionRequestDto {
     @Size(min = 9, max = 15)
     @NotNull
     private String telefono;
-
-    private Departamento departamento;
 }

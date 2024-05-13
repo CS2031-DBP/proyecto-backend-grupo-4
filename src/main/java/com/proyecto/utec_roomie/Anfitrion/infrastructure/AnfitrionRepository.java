@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface AnfitrionRepository extends EstudianteRepository<Anfitrion> {
 
-    Optional<Anfitrion> findByNombreAndApellidoAndTelefono(String nombre, String apellido, String telefono);
-    Optional<Anfitrion> findByCorreo(String correo);
+
 }

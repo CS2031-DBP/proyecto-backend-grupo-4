@@ -38,13 +38,15 @@ public class AnfitrionService {
         return modelMapper.map(anfitrion, AnfitrionResponseDto.class);
     }
 
-      public void anadirAnfitrion(AnfitrionRequestDto anfitrionRequestDto) {
+      public String anadirAnfitrion(AnfitrionRequestDto anfitrionRequestDto) {
         Anfitrion nuevoAnfitrion = modelMapper.map(anfitrionRequestDto, Anfitrion.class);
         nuevoAnfitrion.setFecha_de_creacion(Date.from(Instant.now()));
         nuevoAnfitrion.setTipoEstudiante(TipoEstudiante.ANFITRION);
+
         Optional<Anfitrion> a = anfitrionRepository.findByCorreo(anfitrionRequestDto.getCorreo());
-        Optional<Edificio> e = edificioRepository.findById(anfitrionRequestDto.getDepartamentoDto().getEdificio_id());
-        Optional<Departamento> d = departamentoRepository.findByEdificioAndNro(e.get(),anfitrionRequestDto.getDepartamentoDto().getNro());
+        Optional<Edificio> e = edificioRepository.findById(anfitrionRequestDto.getDepartamento().getEdificio().getId());
+        Optional<Departamento> d = departamentoRepository.findByEdificioAndNro(e.get(),anfitrionRequestDto.getDepartamento().getNro());
+
         if (a.isPresent()) {
             throw new UniqueResourceAlreadyExists("Usuario ya existe en el sistema");
         }
@@ -52,9 +54,9 @@ public class AnfitrionService {
         if(d.isPresent()){
             throw new UniqueResourceAlreadyExists("Departamento ya registrado en el sistema");
         }
-
-        anfitrionRepository.save(nuevoAnfitrion);
-    }
+        Anfitrion savedAnfitrion = anfitrionRepository.save(nuevoAnfitrion);
+          return "/anfitrion/" + savedAnfitrion.getId();
+      }
 
     public void actualizarAnfitrion(Long anfitrionId, AnfitrionResponseDto anfitrionResponseDto) {
         Anfitrion anfitrion = returnAnfitrion(anfitrionId);
@@ -66,29 +68,16 @@ public class AnfitrionService {
         depa.setHabitaciones(anfitrionResponseDto.getDepartamentoDto().getHabitaciones());
         anfitrion.setDepartamento(depa);
 
+        anfitrion.setFechaActualizacion(Date.from(Instant.now()));
+
         anfitrionRepository.save(anfitrion);
 
     }
-
 
     public void eliminarAnfitrion(Long anfitrionId) {
         Anfitrion anfitrion = returnAnfitrion(anfitrionId);
         anfitrionRepository.delete(anfitrion);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private Anfitrion returnAnfitrion(Long anfitrionId) {
         Optional<Anfitrion> a = anfitrionRepository.findById(anfitrionId);

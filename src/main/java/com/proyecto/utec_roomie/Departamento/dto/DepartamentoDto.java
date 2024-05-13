@@ -12,4 +12,5 @@ public class DepartamentoDto {
     private Double costo;
     private Integer habitaciones;
 
+
 }

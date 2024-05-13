@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "anfitrion")
 
 public class Anfitrion extends Estudiante {
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST}) //CUANDO elimine anfitrion, tambien se elimina el departamento
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 

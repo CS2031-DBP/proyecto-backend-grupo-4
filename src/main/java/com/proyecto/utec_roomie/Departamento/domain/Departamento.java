@@ -25,8 +25,6 @@ public class Departamento {
     @ManyToOne
     private Edificio edificio;
 
-    //no referencia hacia anfitrion y edificio ya que
-    // no es necesaria una relacion bidereccional
-    //. No es necesaria ya q cada entidad accedera a ella.
-    // y tiene su llave foranea y asi puede acceder...
+    @OneToOne
+    private Anfitrion anfitrion;
 }

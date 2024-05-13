@@ -33,7 +33,7 @@ public class Estudiante {
     private Date fechaNacimiento;
 
     @Column(nullable = false)
-    private String password;
+    private String contrasena;
 
     @Size(min = 9,max = 9)
     private String telefono;

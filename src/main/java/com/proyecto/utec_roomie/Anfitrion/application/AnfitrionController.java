@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @RestController("/anfitrion")
 public class AnfitrionController
 {
@@ -15,8 +17,8 @@ public class AnfitrionController
 
     @PostMapping
     public ResponseEntity<Void> anadirAnfitrion(@RequestBody AnfitrionRequestDto anfitrionRequestDto){
-        anfitrionService.anadirAnfitrion(anfitrionRequestDto);
-        return ResponseEntity.ok().build();
+        String uri = anfitrionService.anadirAnfitrion(anfitrionRequestDto);
+        return ResponseEntity.created(URI.create(uri)).build();
     }
     @GetMapping("/{anfitrion_id}")
     public ResponseEntity<AnfitrionResponseDto> getAnfitrion(@PathVariable Long anfitrion_id){

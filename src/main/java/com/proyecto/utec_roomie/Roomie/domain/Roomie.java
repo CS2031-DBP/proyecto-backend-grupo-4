@@ -1,5 +1,6 @@
 package com.proyecto.utec_roomie.Roomie.domain;
 
+import com.proyecto.utec_roomie.Arrendamiento.domain.Arrendamiento;
 import com.proyecto.utec_roomie.Estudiante.domain.Estudiante;
 import com.proyecto.utec_roomie.Solicitud.domain.Solicitud;
 import jakarta.persistence.*;
@@ -17,7 +18,10 @@ public class Roomie extends Estudiante {
 
     private String direccion;
 
-    @OneToMany(mappedBy = "roomie", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Arrendamiento arrendamiento;
+
+    @OneToMany(mappedBy = "roomie", cascade = CascadeType.REMOVE)
     private List<Solicitud> solicitudesEnviadas = new ArrayList<>();
 
 }
