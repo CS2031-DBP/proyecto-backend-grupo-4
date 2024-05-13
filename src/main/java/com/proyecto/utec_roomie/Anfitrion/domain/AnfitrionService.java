@@ -45,6 +45,7 @@ public class AnfitrionService {
 
         Optional<Anfitrion> a = anfitrionRepository.findByCorreo(anfitrionRequestDto.getCorreo());
         Optional<Edificio> e = edificioRepository.findById(anfitrionRequestDto.getDepartamento().getEdificio().getId());
+        //mmm edificio pensarlo mejor
         Optional<Departamento> d = departamentoRepository.findByEdificioAndNro(e.get(),anfitrionRequestDto.getDepartamento().getNro());
 
         if (a.isPresent()) {

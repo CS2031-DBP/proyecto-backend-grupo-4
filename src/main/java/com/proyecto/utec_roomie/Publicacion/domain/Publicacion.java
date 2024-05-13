@@ -19,6 +19,9 @@ public class Publicacion {
     @GeneratedValue
     private Long id;
 
+    private String titulo;
+    private String Descripcion;
+    private byte[] imagen;
     @OneToOne(mappedBy = "publicacion")
     @JoinColumn(name = "departamento_id")
 //    @JoinColumn(name = "anfitrion_id")

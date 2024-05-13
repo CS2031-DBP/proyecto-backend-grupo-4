@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Anfitrion extends Estudiante {
     @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST}) //CUANDO elimine anfitrion, tambien se elimina el departamento
-    @JoinColumn(name = "departamento_id")
+    @JoinColumn(name = "departamento_id")               //cuando se cree departamento junto anfitrion, se cuardo en contexto algo asixd
     private Departamento departamento;
 
     @OneToOne
