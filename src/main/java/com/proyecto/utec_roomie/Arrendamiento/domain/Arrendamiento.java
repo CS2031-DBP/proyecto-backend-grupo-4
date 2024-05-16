@@ -1,5 +1,7 @@
 package com.proyecto.utec_roomie.Arrendamiento.domain;
 
+import com.proyecto.utec_roomie.Departamento.domain.Departamento;
+import com.proyecto.utec_roomie.Roomie.domain.Roomie;
 import com.proyecto.utec_roomie.Solicitud.domain.Solicitud;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +22,13 @@ public class Arrendamiento {
 
     private Date fechaFin;
 
+//    @OneToOne
+//    private Solicitud solicitudOrigen;
+
     @OneToOne
-    private Solicitud solicitudOrigen;
+    private Roomie roomie;
+
+    @OneToOne
+    private Departamento departamento;
 
 }
