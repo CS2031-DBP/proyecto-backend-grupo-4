@@ -28,7 +28,7 @@ public class RoomieService {
         newRoomie.setTipoEstudiante(TipoEstudiante.ROOMIE);
         newRoomie.setFecha_de_creacion(Date.from(Instant.now()));
 
-        Optional<Roomie> r = roomieRepository.findByCorreo(newRoomie.getCorreo());
+        Optional<Roomie> r = roomieRepository.findByEmail(newRoomie.getEmail());
         if(r.isPresent()){
             throw new UniqueResourceAlreadyExists("ya existe un correo con este usuario");
         }
@@ -47,7 +47,7 @@ public class RoomieService {
     }
 
     public RoomieRequestDto getRoomie(String correo) {
-        Optional<Roomie> r =  roomieRepository.findByCorreo(correo);
+        Optional<Roomie> r =  roomieRepository.findByEmail(correo);
         if(r.isEmpty()){
             throw new ResourceNotFoundException("no existe roomie");
         }

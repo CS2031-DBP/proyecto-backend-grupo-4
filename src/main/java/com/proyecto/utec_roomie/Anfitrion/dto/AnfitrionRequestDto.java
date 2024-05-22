@@ -1,7 +1,6 @@
 package com.proyecto.utec_roomie.Anfitrion.dto;
 
 import com.proyecto.utec_roomie.Departamento.domain.Departamento;
-import com.proyecto.utec_roomie.Departamento.dto.DepartamentoDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,7 +21,7 @@ public class AnfitrionRequestDto {
     private String apellido;
 
     @Email
-    private String correo;
+    private String email;
 
     private String descripcion;
 
