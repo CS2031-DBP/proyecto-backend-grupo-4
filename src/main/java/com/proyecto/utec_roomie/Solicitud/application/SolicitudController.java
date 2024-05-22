@@ -15,7 +15,7 @@ public class SolicitudController
 
     @PostMapping()
     public ResponseEntity<Void> crearSolicitud(@RequestBody Solicitud solicitud){
-        
+        return ResponseEntity.ok().build();
     }
 
 }

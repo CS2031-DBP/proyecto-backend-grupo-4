@@ -2,17 +2,21 @@ package com.proyecto.utec_roomie.Estudiante.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Inheritance(strategy = InheritanceType.JOINED)
 
-public class Estudiante {
+public class Estudiante implements UserDetails {
     @Id
     private Long id;
 
@@ -27,13 +31,13 @@ public class Estudiante {
 
     @Email
     @Column(nullable = false)
-    private String correo;
+    private String email;
 
     @Column(nullable = false)
     private Date fechaNacimiento;
 
     @Column(nullable = false)
-    private String contrasena;
+    private String password;
 
     @Size(min = 9,max = 9)
     private String telefono;
@@ -51,4 +55,33 @@ public class Estudiante {
 
     private Date ultima_conexion;
 
+   @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(tipoEstudiante.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -20,8 +20,6 @@ public class PublicacionService {
     private PublicacionRepository publicacionRepository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private HikariCheckpointRestoreLifecycle hikariCheckpointRestoreLifecycle;
 
 //    public void anadirSolicitud(Long publicacion_id, Solicitud solicitud){
 //        Optional<Publicacion> p =  publicacionRepository.findById(publicacion_id);

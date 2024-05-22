@@ -22,13 +22,13 @@ public class Publicacion {
     private String titulo;
     private String Descripcion;
     private byte[] imagen;
-    @OneToOne(mappedBy = "publicacion")
-    @JoinColumn(name = "departamento_id")
+    @OneToOne
+//    @JoinColumn(name = "departamento_id")
 //    @JoinColumn(name = "anfitrion_id")
 //    private Anfitrion anfitrion;
     private Departamento departamento;
 
-    @OneToMany(mappedBy = "publicacion")
+    @OneToMany
     private List<Solicitud> solicitud;
 
 }

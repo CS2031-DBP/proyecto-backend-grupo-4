@@ -43,7 +43,7 @@ public class AnfitrionService {
         nuevoAnfitrion.setFecha_de_creacion(Date.from(Instant.now()));
         nuevoAnfitrion.setTipoEstudiante(TipoEstudiante.ANFITRION);
 
-        Optional<Anfitrion> a = anfitrionRepository.findByCorreo(anfitrionRequestDto.getCorreo());
+        Optional<Anfitrion> a = anfitrionRepository.findByEmail(anfitrionRequestDto.getEmail());
         Optional<Edificio> e = edificioRepository.findById(anfitrionRequestDto.getDepartamento().getEdificio().getId());
         //mmm edificio pensarlo mejor
         Optional<Departamento> d = departamentoRepository.findByEdificioAndNro(e.get(),anfitrionRequestDto.getDepartamento().getNro());
