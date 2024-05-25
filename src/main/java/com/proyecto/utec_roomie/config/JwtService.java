@@ -2,7 +2,7 @@ package com.proyecto.utec_roomie.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.proyecto.utec_roomie.Estudiante.domain.EstudianteService;
+import com.proyecto.utec_roomie.student.domain.EstudianteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -13,8 +13,8 @@ public class UtecRoomieApplication {
 	}
 
 	@Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 
 }

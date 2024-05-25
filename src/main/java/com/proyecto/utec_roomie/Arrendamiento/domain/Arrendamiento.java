@@ -1,8 +1,7 @@
 package com.proyecto.utec_roomie.Arrendamiento.domain;
 
-import com.proyecto.utec_roomie.Departamento.domain.Departamento;
-import com.proyecto.utec_roomie.Roomie.domain.Roomie;
-import com.proyecto.utec_roomie.Solicitud.domain.Solicitud;
+import com.proyecto.utec_roomie.department.domain.Departamento;
+import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,6 @@
 package com.proyecto.utec_roomie.Resena.domain;
 
-import com.proyecto.utec_roomie.Anfitrion.domain.Anfitrion;
-import com.proyecto.utec_roomie.Estudiante.domain.Estudiante;
-import com.proyecto.utec_roomie.Roomie.domain.Roomie;
+import com.proyecto.utec_roomie.student.domain.Estudiante;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

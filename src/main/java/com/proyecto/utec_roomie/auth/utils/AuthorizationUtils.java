@@ -1,8 +1,8 @@
 package com.proyecto.utec_roomie.auth.utils;
 
 
-import com.proyecto.utec_roomie.Estudiante.domain.Estudiante;
-import com.proyecto.utec_roomie.Estudiante.domain.EstudianteService;
+import com.proyecto.utec_roomie.student.domain.Estudiante;
+import com.proyecto.utec_roomie.student.domain.EstudianteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
