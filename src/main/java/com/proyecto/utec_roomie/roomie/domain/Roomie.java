@@ -1,7 +1,6 @@
 package com.proyecto.utec_roomie.roomie.domain;
 
 import com.proyecto.utec_roomie.Arrendamiento.domain.Arrendamiento;
-import com.proyecto.utec_roomie.Preferencias.domain.PreferenciaRoomie;
 import com.proyecto.utec_roomie.student.domain.Estudiante;
 import com.proyecto.utec_roomie.request.domain.Solicitud;
 import jakarta.persistence.*;
@@ -17,12 +16,10 @@ import java.util.List;
 @Table(name = "roomie")
 public class Roomie extends Estudiante {
 
-    private String direccion;
-
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.REMOVE})
     private Arrendamiento arrendamiento;
 
-    @OneToMany(mappedBy = "roomie", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "roomie", cascade = {CascadeType.REMOVE})
     private List<Solicitud> solicitudesEnviadas = new ArrayList<>();
 
 }

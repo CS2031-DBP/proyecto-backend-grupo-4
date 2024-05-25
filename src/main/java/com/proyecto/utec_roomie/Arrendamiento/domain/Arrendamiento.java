@@ -14,17 +14,19 @@ import java.util.Date;
 public class Arrendamiento {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Date fechaInicio;
+
 
     private Date fechaFin;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     private Roomie roomie;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     private Departamento departamento;
 
 }

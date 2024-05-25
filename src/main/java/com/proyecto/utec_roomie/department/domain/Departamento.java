@@ -1,7 +1,6 @@
 package com.proyecto.utec_roomie.department.domain;
 
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
-import com.proyecto.utec_roomie.building.domain.Edificio;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,19 +10,29 @@ import lombok.Setter;
 @Setter
 public class Departamento {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private Integer nro;
+    @Column(nullable = false)
     private Integer piso;
+    @Column(nullable = false)
     private Double costo;
+    @Column(nullable = false)
     private Integer habitaciones;
+    @Column(nullable = false)
     private String descripcion;
+    @Column(nullable = false)
     private Integer bano;
-    private Integer area;
+    @Column(nullable = false)
+    private Float area;
+    private Float puntaje;
 
-    @ManyToOne
-    private Edificio edificio;
+    @Column(nullable = false)
+    private Double latitude;
+    @Column(nullable = false)
+    private Double longitude;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Anfitrion anfitrion;
 }

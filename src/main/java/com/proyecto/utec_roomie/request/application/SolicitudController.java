@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SolicitudController
 {
-    @Autowired
-    private SolicitudService solicitudService;
+    private final SolicitudService solicitudService;
 
-    @PostMapping()
-    public ResponseEntity<Void> crearSolicitud(@RequestBody Solicitud solicitud){
-        return ResponseEntity.ok().build();
+    @Autowired
+    public SolicitudController(SolicitudService solicitudService){
+        this.solicitudService = solicitudService;
+    }
+
+    @PostMapping("/{publicacion_id}")
+    public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id,@RequestBody Solicitud solicitud){
+        solicitudService.crearSolicitud(publicacion_id,solicitud);
+        return ResponseEntity.ok("Solicitud enviada!");
     }
 
 
