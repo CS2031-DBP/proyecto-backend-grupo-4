@@ -5,8 +5,6 @@ import com.proyecto.utec_roomie.host.dto.AnfitrionRequestDto;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.department.domain.Departamento;
 import com.proyecto.utec_roomie.department.infrastructure.DepartamentoRepository;
-import com.proyecto.utec_roomie.building.domain.Edificio;
-import com.proyecto.utec_roomie.building.infrastructure.EdificioRepository;
 import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
 import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
@@ -20,9 +18,6 @@ import java.util.Optional;
 
 @Service
 public class AnfitrionService {
-
-    @Autowired
-    private EdificioRepository edificioRepository;
 
     @Autowired
     private DepartamentoRepository departamentoRepository;
@@ -40,13 +35,13 @@ public class AnfitrionService {
 
       public String anadirAnfitrion(AnfitrionRequestDto anfitrionRequestDto) {
         Anfitrion nuevoAnfitrion = modelMapper.map(anfitrionRequestDto, Anfitrion.class);
-        nuevoAnfitrion.setFecha_de_creacion(Date.from(Instant.now()));
+        nuevoAnfitrion.setFechaCreacion(Date.from(Instant.now()));
         nuevoAnfitrion.setTipoEstudiante(TipoEstudiante.ANFITRION);
 
         Optional<Anfitrion> a = anfitrionRepository.findByEmail(anfitrionRequestDto.getEmail());
-        Optional<Edificio> e = edificioRepository.findById(anfitrionRequestDto.getDepartamento().getEdificio().getId());
         //mmm edificio pensarlo mejor
-        Optional<Departamento> d = departamentoRepository.findByEdificioAndNro(e.get(),anfitrionRequestDto.getDepartamento().getNro());
+        Optional<Departamento> d = departamentoRepository.findByLatitudeAndLongitudeAndNro(anfitrionRequestDto.getDepartamento().getLatitude(),
+                anfitrionRequestDto.getDepartamento().getLongitude(),anfitrionRequestDto.getDepartamento().getNro());
 
         if (a.isPresent()) {
             throw new UniqueResourceAlreadyExists("Usuario ya existe en el sistema");

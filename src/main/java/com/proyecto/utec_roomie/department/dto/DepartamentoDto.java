@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 public class DepartamentoDto {
 
-    private Long edificio_id;
     private Long anfitrion_id;
     private Integer nro;
     private Double costo;
     private Integer habitaciones;
+    private Float puntaje;
 
 
 }

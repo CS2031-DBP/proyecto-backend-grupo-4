@@ -26,7 +26,7 @@ public class RoomieService {
         Roomie newRoomie = modelMapper.map(roomieRequestDto, Roomie.class);
 
         newRoomie.setTipoEstudiante(TipoEstudiante.ROOMIE);
-        newRoomie.setFecha_de_creacion(Date.from(Instant.now()));
+        newRoomie.setFechaCreacion(Date.from(Instant.now()));
 
         Optional<Roomie> r = roomieRepository.findByEmail(newRoomie.getEmail());
         if(r.isPresent()){

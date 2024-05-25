@@ -61,7 +61,6 @@ public class PublicacionService {
         Publicacion publicacion = p.get();
         publicacion.setTitulo(publicacionResponseDto.getTitulo());
         publicacion.setDescripcion(publicacionResponseDto.getDescripcion());
-        publicacion.setImagen(publicacionResponseDto.getImagen());
 
         publicacionRepository.save(publicacion);
     }

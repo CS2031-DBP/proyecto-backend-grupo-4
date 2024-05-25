@@ -16,16 +16,15 @@ public class Publicacion {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String titulo;
-    private String Descripcion;
-    private byte[] imagen;
+    @Column(nullable = false)
+    private String descripcion;
     @OneToOne
-//    @JoinColumn(name = "departamento_id")
-//    @JoinColumn(name = "anfitrion_id")
-//    private Anfitrion anfitrion;
+    @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 
     @OneToMany
-    private List<Solicitud> solicitud;
+    private List<Solicitud> solicitudes;
 
 }

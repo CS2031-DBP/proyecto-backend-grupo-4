@@ -17,7 +17,7 @@ public class Anfitrion extends Estudiante {
     @JoinColumn(name = "departamento_id")               //cuando se cree departamento junto anfitrion, se cuardo en contexto algo asixd
     private Departamento departamento;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "publicacion_id")
     private Publicacion publicacion;
 }

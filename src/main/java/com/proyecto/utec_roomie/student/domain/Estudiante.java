@@ -17,7 +17,9 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public class Estudiante implements UserDetails {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -27,6 +29,7 @@ public class Estudiante implements UserDetails {
 
     private String descripcion;
 
+    @Column(nullable = false)
     private String carrera;
 
     @Email
@@ -49,11 +52,10 @@ public class Estudiante implements UserDetails {
     @DecimalMin("0.0")
     private Double rating;
 
-    private Date fecha_de_creacion;
+    @Column(nullable = false)
+    private Date fechaCreacion;
 
     private Date fechaActualizacion;
-
-    private Date ultima_conexion;
 
    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -15,9 +15,9 @@ public class Solicitud {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "publicacion_id", nullable = false)
-    Publicacion publicacion;
+    private Publicacion publicacion;
 
     @ManyToOne
     @JoinColumn(name = "roomie_id", nullable = false)
