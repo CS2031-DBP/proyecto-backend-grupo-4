@@ -1,6 +1,7 @@
 package com.proyecto.utec_roomie.roomie.domain;
 
 import com.proyecto.utec_roomie.Arrendamiento.domain.Arrendamiento;
+import com.proyecto.utec_roomie.Preferencias.domain.PreferenciaRoomie;
 import com.proyecto.utec_roomie.student.domain.Estudiante;
 import com.proyecto.utec_roomie.request.domain.Solicitud;
 import jakarta.persistence.*;

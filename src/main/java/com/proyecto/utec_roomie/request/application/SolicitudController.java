@@ -18,4 +18,5 @@ public class SolicitudController
         return ResponseEntity.ok().build();
     }
 
+
 }

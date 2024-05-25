@@ -21,9 +21,6 @@ public class Arrendamiento {
 
     private Date fechaFin;
 
-//    @OneToOne
-//    private Solicitud solicitudOrigen;
-
     @OneToOne
     private Roomie roomie;
 
