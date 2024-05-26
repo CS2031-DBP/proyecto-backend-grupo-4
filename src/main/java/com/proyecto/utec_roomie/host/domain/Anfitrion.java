@@ -13,11 +13,10 @@ import lombok.Setter;
 @Table(name = "anfitrion")
 
 public class Anfitrion extends Estudiante {
-    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST}) //CUANDO elimine anfitrion, tambien se elimina el departamento
-    @JoinColumn(name = "departamento_id")               //cuando se cree departamento junto anfitrion, se cuardo en contexto algo asixd
+    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 
-    @OneToOne(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "publicacion_id")
+    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "anfitrion")
     private Publicacion publicacion;
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Solicitud {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @OneToOne

@@ -14,5 +14,5 @@ public interface DepartamentoRepository extends JpaRepository<Departamento, Long
     List<Departamento> findAllByPuntajeEquals(Float puntaje);
     List<Departamento> findAllByAreaLessThanEqual(Float area);
 
-    Optional<Departamento> findByLatitudeAndLongitudeAndNro(Double latitude, Double longitude, Integer nro);
+    Optional<Departamento> findByLatitudeAndLongitude(Double latitude, Double longitude);
 }

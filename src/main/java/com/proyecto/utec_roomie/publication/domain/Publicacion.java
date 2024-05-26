@@ -1,6 +1,7 @@
 package com.proyecto.utec_roomie.publication.domain;
 
 import com.proyecto.utec_roomie.department.domain.Departamento;
+import com.proyecto.utec_roomie.host.domain.Anfitrion;
 import com.proyecto.utec_roomie.request.domain.Solicitud;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,9 +21,10 @@ public class Publicacion {
     private String titulo;
     @Column(nullable = false)
     private String descripcion;
+
     @OneToOne
-    @JoinColumn(name = "departamento_id")
-    private Departamento departamento;
+    @JoinColumn(name = "anfitrion_id")
+    private Anfitrion anfitrion;
 
     @OneToMany
     private List<Solicitud> solicitudes;

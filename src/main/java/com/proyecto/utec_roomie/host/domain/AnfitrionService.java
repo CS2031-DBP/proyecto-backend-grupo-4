@@ -40,8 +40,8 @@ public class AnfitrionService {
 
         Optional<Anfitrion> a = anfitrionRepository.findByEmail(anfitrionRequestDto.getEmail());
         //mmm edificio pensarlo mejor
-        Optional<Departamento> d = departamentoRepository.findByLatitudeAndLongitudeAndNro(anfitrionRequestDto.getDepartamento().getLatitude(),
-                anfitrionRequestDto.getDepartamento().getLongitude(),anfitrionRequestDto.getDepartamento().getNro());
+        Optional<Departamento> d = departamentoRepository.findByLatitudeAndLongitude(anfitrionRequestDto.getDepartamento().getLatitude(),
+                anfitrionRequestDto.getDepartamento().getLongitude());
 
         if (a.isPresent()) {
             throw new UniqueResourceAlreadyExists("Usuario ya existe en el sistema");

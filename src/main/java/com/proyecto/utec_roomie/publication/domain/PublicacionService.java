@@ -1,5 +1,10 @@
 package com.proyecto.utec_roomie.publication.domain;
 
+import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
+import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
+import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
+import com.proyecto.utec_roomie.host.domain.Anfitrion;
+import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.dto.PublicacionRequestDto;
 import com.proyecto.utec_roomie.publication.dto.PublicacionResponseDto;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
@@ -14,34 +19,36 @@ import java.util.Optional;
 @Service
 public class PublicacionService {
 
-    @Autowired
-    private PublicacionRepository publicacionRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final PublicacionRepository publicacionRepository;
+    private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
+    private final AnfitrionRepository anfitrionRepository;
 
-//    public void anadirSolicitud(Long publicacion_id, Solicitud solicitud){
-//        Optional<Publicacion> p =  publicacionRepository.findById(publicacion_id);
-//        if(p.isEmpty()){
-//            //error handilng
-//        }
-//        Publicacion publicacion = p.get();
-//        List<Solicitud> lista_solicitudes = publicacion.getSolicitud();
-//        lista_solicitudes.add(solicitud);
-//        publicacion.setSolicitud(lista_solicitudes);
-//        publicacionRepository.save(publicacion);
-//
-//    }
+    @Autowired
+    public PublicacionService(PublicacionRepository publicacionRepository, ModelMapper modelMapper,
+                              AuthorizationUtils authorizationUtils, AnfitrionRepository anfitrionRepository) {
+        this.publicacionRepository = publicacionRepository;
+        this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
+        this.anfitrionRepository = anfitrionRepository;
+    }
+
 
     public String crearPublicacion(PublicacionRequestDto publicacionRequestDto){
-
-        Publicacion publicacion = modelMapper.map(publicacionRequestDto, Publicacion.class);
-        //solo un anfitrion puede hacer esto
-        //solo puede hacerlo una ves relacion uno a uno
-
-        Publicacion savedPublicacion = publicacionRepository.save(publicacion);
-
-        return "/publicacion/" + savedPublicacion.getId();
-    }
+        String role = authorizationUtils.getCurrentUserRole();
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        if(!role.equals("ANFITRION")) {
+            throw new UnauthorizeOperationException("no eres anfitrion");
+        }
+        Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
+        if(anfitrion.getPublicacion() != null) {
+            throw new UniqueResourceAlreadyExists("Ya tiene una publicacion");
+        }
+            Publicacion publicacion = modelMapper.map(publicacionRequestDto, Publicacion.class);
+            Publicacion savedPublicacion = publicacionRepository.save(publicacion);
+            anfitrion.setPublicacion(savedPublicacion);
+            return "/publicacion/" + savedPublicacion.getId();
+        }
 
 
     public void eliminarPublicacion(Long publicacionId) {

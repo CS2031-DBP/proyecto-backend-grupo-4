@@ -9,8 +9,10 @@ import java.util.Optional;
 
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
 
-    @Query("SELECT s FROM Solicitud s, Roomie r, Publicacion p " +
-           "WHERE p.id = :publicacion_id AND r.email = :roomie_email")
+    @Query("SELECT s FROM Solicitud s " +
+       "JOIN s.roomie r " +
+       "JOIN s.publicacion p " +
+       "WHERE p.id = :publicacion_id AND r.email = :roomie_email")
 
-    Optional<Solicitud> findByPublicacionIdAndRoomieEmail(@Param("publicacion_id") Long publicacionId, @Param("roomie_email") String roomieId);
+    Optional<Solicitud> findByPublicacionIdAndRoomieEmail(@Param("publicacion_id") Long publicacionId, @Param("roomie_email") String roomieEmail);
 }

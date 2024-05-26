@@ -14,8 +14,11 @@ import java.net.URI;
 @RequestMapping("/roomie")
 public class RoomieController {
 
-    @Autowired
-    private RoomieService roomieService;
+    private final RoomieService roomieService;
+
+    public RoomieController(RoomieService roomieService) {
+        this.roomieService = roomieService;
+    }
 
 
     @PostMapping
@@ -25,12 +28,12 @@ public class RoomieController {
     }
 
     @GetMapping("/{roomie_id}")
-    public ResponseEntity<RoomieRequestDto> getRoomie(@PathVariable Long roomie_id){
+    public ResponseEntity<RoomieRequestDto> getRoomieByID(@PathVariable Long roomie_id){
         return ResponseEntity.ok(roomieService.getRoomie(roomie_id));
     }
 
     @GetMapping("/{correo}")
-    public ResponseEntity<RoomieRequestDto> getRoomie(@PathVariable String correo){
+    public ResponseEntity<RoomieRequestDto> getRoomieByCorreo(@PathVariable String correo){
         return ResponseEntity.ok(roomieService.getRoomie(correo));
     }
 

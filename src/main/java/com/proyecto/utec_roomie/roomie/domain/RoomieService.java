@@ -46,8 +46,8 @@ public class RoomieService {
         return modelMapper.map(r.get(), RoomieRequestDto.class);
     }
 
-    public RoomieRequestDto getRoomie(String correo) {
-        Optional<Roomie> r =  roomieRepository.findByEmail(correo);
+    public RoomieRequestDto getRoomie(String email) {
+        Optional<Roomie> r =  roomieRepository.findByEmail(email);
         if(r.isEmpty()){
             throw new ResourceNotFoundException("no existe roomie");
         }

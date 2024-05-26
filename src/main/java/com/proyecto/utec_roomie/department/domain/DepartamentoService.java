@@ -17,7 +17,7 @@ public class DepartamentoService {
     }
 
 
-    public List<Departamento> getDepartamentos(Double latitudCercana, Double longitudCercana, Double costoMinimo, Float puntajeMinimo, Integer habitaciones, Float areaMinima) {
+    public List<Departamento> getDepartamentos(Double costoMinimo, Float puntajeMinimo, Integer habitaciones, Float areaMinima) {
         return new ArrayList<Departamento>();
     }
 }
