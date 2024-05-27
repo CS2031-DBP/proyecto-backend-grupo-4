@@ -4,7 +4,6 @@ import com.proyecto.utec_roomie.host.dto.AnfitrionResponseDto;
 import com.proyecto.utec_roomie.host.dto.AnfitrionRequestDto;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.department.domain.Departamento;
-import com.proyecto.utec_roomie.department.infrastructure.DepartamentoRepository;
 import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
 import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;

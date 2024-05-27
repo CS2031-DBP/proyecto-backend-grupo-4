@@ -6,6 +6,8 @@ import com.proyecto.utec_roomie.request.domain.Solicitud;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -24,9 +26,10 @@ public class Publicacion {
 
     @OneToOne
     @JoinColumn(name = "anfitrion_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Anfitrion anfitrion;
-
-    @OneToMany()
-    private List<Solicitud> solicitudes;
+//
+//    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "publicacion")
+//    private List<Solicitud> solicitudes;
 
 }

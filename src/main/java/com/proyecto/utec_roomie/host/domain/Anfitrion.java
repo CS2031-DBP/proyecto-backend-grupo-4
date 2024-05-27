@@ -13,10 +13,8 @@ import lombok.Setter;
 @Table(name = "anfitrion")
 
 public class Anfitrion extends Estudiante {
-    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 
-//    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "anfitrion")
-//    private Publicacion publicacion;
 }

@@ -16,4 +16,9 @@ public interface PublicacionRepository extends JpaRepository<Publicacion,Long> {
 
 //    Optional<Publicacion> findByAnfitrion(Anfitrion anfitrion);
     Optional<Publicacion> findByAnfitrion(Anfitrion anfitrion);
+
+        @Query("SELECT p FROM Publicacion p " +
+       "JOIN p.anfitrion a " +
+       "WHERE a.email = :anfitrion_email")
+    Optional<Publicacion> findByAnfitrionEmail(@Param("anfitrion_email")String anfitrion_email);
 }
