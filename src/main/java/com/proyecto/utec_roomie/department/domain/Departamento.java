@@ -25,6 +25,4 @@ public class Departamento {
     @Column(nullable = false)
     private String direccion;
 
-    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "departamento")
-    private Anfitrion anfitrion;
 }

@@ -1,6 +1,7 @@
 package com.proyecto.utec_roomie;
 
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
+import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
 import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +23,7 @@ public class GlobalExceptionHandler {
         return ex.getMessage();
     }
 
-
-
-
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(UnauthorizeOperationException.class)
+    public String handleUnauthorize(UnauthorizeOperationException ex) {return ex.getMessage();}
 }

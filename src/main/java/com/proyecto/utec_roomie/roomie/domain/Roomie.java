@@ -16,10 +16,10 @@ import java.util.List;
 @Table(name = "roomie")
 public class Roomie extends Estudiante {
 
-    @OneToOne(cascade = {CascadeType.REMOVE})
-    private Arrendamiento arrendamiento;
-
-    @OneToMany(mappedBy = "roomie", cascade = {CascadeType.REMOVE})
-    private List<Solicitud> solicitudesEnviadas = new ArrayList<>();
+//    @OneToOne(cascade = {CascadeType.REMOVE})
+//    private Arrendamiento arrendamiento;
+//
+//    @OneToMany(mappedBy = "roomie", cascade = {CascadeType.REMOVE})
+//    private List<Solicitud> solicitudesEnviadas = new ArrayList<>();
 
 }
