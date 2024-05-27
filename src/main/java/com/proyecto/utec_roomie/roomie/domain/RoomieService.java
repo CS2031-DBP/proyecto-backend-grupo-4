@@ -1,5 +1,7 @@
 package com.proyecto.utec_roomie.roomie.domain;
 
+import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
+import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
 import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import com.proyecto.utec_roomie.roomie.dto.RoomieRequestDto;
 import com.proyecto.utec_roomie.roomie.dto.RoomieResponseDto;
@@ -17,46 +19,45 @@ import java.util.Optional;
 @Service
 public class RoomieService {
 
+    private final RoomieRepository roomieRepository;
+    private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
+
     @Autowired
-    private RoomieRepository roomieRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public String anadirRoomie(RoomieRequestDto roomieRequestDto) {
-        Roomie newRoomie = modelMapper.map(roomieRequestDto, Roomie.class);
-
-        newRoomie.setTipoEstudiante(TipoEstudiante.ROOMIE);
-        newRoomie.setFechaCreacion(Date.from(Instant.now()));
-
-        Optional<Roomie> r = roomieRepository.findByEmail(newRoomie.getEmail());
-        if(r.isPresent()){
-            throw new UniqueResourceAlreadyExists("ya existe un correo con este usuario");
-        }
-        Roomie savedRoomie = roomieRepository.save(newRoomie);
-        return "/roomie/" + savedRoomie.getId();
+    public RoomieService(RoomieRepository roomieRepository, ModelMapper modelMapper, AuthorizationUtils authorizationUtils) {
+        this.roomieRepository = roomieRepository;
+        this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
-    public RoomieRequestDto getRoomie(Long roomie_id){
+    public RoomieResponseDto getRoomie(Long roomie_id){
         Optional<Roomie> r =  roomieRepository.findById(roomie_id);
 
         if(r.isEmpty()){
             throw new ResourceNotFoundException("no existe roomie");
         }
 
-        return modelMapper.map(r.get(), RoomieRequestDto.class);
+        return modelMapper.map(r.get(), RoomieResponseDto.class);
     }
 
-    public RoomieRequestDto getRoomie(String correo) {
-        Optional<Roomie> r =  roomieRepository.findByEmail(correo);
-        if(r.isEmpty()){
-            throw new ResourceNotFoundException("no existe roomie");
+    public Roomie getRoomieOwnInfo() {
+        String role = authorizationUtils.getCurrentUserRole();
+
+        if(!role.equals("ROOMIE")){
+            throw new UnauthorizeOperationException("unauthorized");
         }
-        return modelMapper.map(r.get(), RoomieRequestDto.class);
+        String usermail = authorizationUtils.getCurrentUserEmail();
+
+        return roomieRepository.findByEmail(usermail).get();
     }
 
-    public void updateRoomie(Long roomie_id, RoomieResponseDto roomieResponseDto){
-        Roomie roomie = returnRoomie(roomie_id);
-
+    public void updateRoomie(RoomieResponseDto roomieResponseDto){
+        String role = authorizationUtils.getCurrentUserRole();
+        if(!role.equals("ROOMIE")){
+            throw new UnauthorizeOperationException("unauthorized");
+        }
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Roomie roomie = roomieRepository.findByEmail(usermail).get();
         roomie.setNombre(roomieResponseDto.getNombre());
         roomie.setApellido(roomieResponseDto.getApellido());
         roomie.setDescripcion(roomieResponseDto.getDescripcion());

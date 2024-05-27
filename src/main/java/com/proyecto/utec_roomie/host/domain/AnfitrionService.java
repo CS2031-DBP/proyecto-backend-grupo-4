@@ -19,40 +19,19 @@ import java.util.Optional;
 @Service
 public class AnfitrionService {
 
-    @Autowired
-    private DepartamentoRepository departamentoRepository;
+    private final AnfitrionRepository anfitrionRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private AnfitrionRepository anfitrionRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    public AnfitrionService(AnfitrionRepository anfitrionRepository, ModelMapper modelMapper){
+        this.anfitrionRepository = anfitrionRepository;
+        this.modelMapper = modelMapper;
+    }
 
     public AnfitrionResponseDto getAnfitrion(Long anfitrionId) {
         Anfitrion anfitrion = returnAnfitrion(anfitrionId);
         return modelMapper.map(anfitrion, AnfitrionResponseDto.class);
     }
-
-      public String anadirAnfitrion(AnfitrionRequestDto anfitrionRequestDto) {
-        Anfitrion nuevoAnfitrion = modelMapper.map(anfitrionRequestDto, Anfitrion.class);
-        nuevoAnfitrion.setFechaCreacion(Date.from(Instant.now()));
-        nuevoAnfitrion.setTipoEstudiante(TipoEstudiante.ANFITRION);
-
-        Optional<Anfitrion> a = anfitrionRepository.findByEmail(anfitrionRequestDto.getEmail());
-        //mmm edificio pensarlo mejor
-        Optional<Departamento> d = departamentoRepository.findByLatitudeAndLongitudeAndNro(anfitrionRequestDto.getDepartamento().getLatitude(),
-                anfitrionRequestDto.getDepartamento().getLongitude(),anfitrionRequestDto.getDepartamento().getNro());
-
-        if (a.isPresent()) {
-            throw new UniqueResourceAlreadyExists("Usuario ya existe en el sistema");
-        }
-
-        if(d.isPresent()){
-            throw new UniqueResourceAlreadyExists("Departamento ya registrado en el sistema");
-        }
-        Anfitrion savedAnfitrion = anfitrionRepository.save(nuevoAnfitrion);
-          return "/anfitrion/" + savedAnfitrion.getId();
-      }
 
     public void actualizarAnfitrion(Long anfitrionId, AnfitrionResponseDto anfitrionResponseDto) {
         Anfitrion anfitrion = returnAnfitrion(anfitrionId);

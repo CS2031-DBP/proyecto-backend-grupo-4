@@ -20,13 +20,12 @@ public class DepartamentoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Departamento>> getDepartamentos(@RequestParam(required = false)Double latitud_cercana,
-                                                              @RequestParam(required = false)Double longitud_cercana,
+    public ResponseEntity<List<Departamento>> getDepartamentos(
                                                               @RequestParam(required = false) Double costo_maximo,
                                                               @RequestParam(required = false) Float puntaje,
                                                               @RequestParam(required = false) Integer habitaciones,
                                                               @RequestParam(required = false) Float area_minima) {
-        return ResponseEntity.ok(departamentoService.getDepartamentos(latitud_cercana, longitud_cercana,costo_maximo,puntaje,habitaciones,area_minima));
+        return ResponseEntity.ok(departamentoService.getDepartamentos(costo_maximo,puntaje,habitaciones,area_minima));
     }
 
 }

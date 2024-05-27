@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-
 public class Estudiante implements UserDetails {
 
     @Id
@@ -33,7 +32,7 @@ public class Estudiante implements UserDetails {
     private String carrera;
 
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)

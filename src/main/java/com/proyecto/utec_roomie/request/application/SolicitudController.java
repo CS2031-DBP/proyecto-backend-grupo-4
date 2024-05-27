@@ -18,8 +18,8 @@ public class SolicitudController
     }
 
     @PostMapping("/{publicacion_id}")
-    public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id,@RequestBody Solicitud solicitud){
-        solicitudService.crearSolicitud(publicacion_id,solicitud);
+    public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id){
+        solicitudService.crearSolicitud(publicacion_id);
         return ResponseEntity.ok("Solicitud enviada!");
     }
 
