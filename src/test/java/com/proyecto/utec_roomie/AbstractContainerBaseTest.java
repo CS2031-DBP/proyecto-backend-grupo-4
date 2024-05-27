@@ -17,7 +17,7 @@ public abstract class AbstractContainerBaseTest {
                 .withUsername("e2e")
                 .withPassword("e2e");
 
-        postgresqlContainer.start();
+        postgresqlContainer.start() ;
     }
 
     @DynamicPropertySource

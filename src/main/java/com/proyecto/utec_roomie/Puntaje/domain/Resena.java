@@ -1,4 +1,4 @@
-package com.proyecto.utec_roomie.Resena.domain;
+package com.proyecto.utec_roomie.Puntaje.domain;
 
 import com.proyecto.utec_roomie.student.domain.Estudiante;
 import jakarta.persistence.*;
