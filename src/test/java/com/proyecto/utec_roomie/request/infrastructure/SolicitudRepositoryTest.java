@@ -35,6 +35,7 @@ import java.util.Optional;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 
 public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
+
     private final SolicitudRepository solicitudRepository;
     private final TestEntityManager entityManager;
     private final PublicacionRepository publicacionRepository;
@@ -50,9 +51,24 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         this.roomieRepository = roomieRepository;
     }
 
+    private Departamento departamento1;
+    private Departamento departamento2;
+    private Departamento departamento3;
+
+    private Anfitrion anfitrion1;
+    private Anfitrion anfitrion2;
+    private Anfitrion anfitrion3;
+
+    private Roomie roomie1;
+
+    private Publicacion publicacion1;
+    private Publicacion publicacion2;
+    private Publicacion publicacion3;
+
+
     @BeforeEach
     public void setUp() {
-        Departamento departamento1 = new Departamento();
+        departamento1 = new Departamento();
         departamento1.setDireccion("aa");
         departamento1.setArea(145.3f);
         departamento1.setPiso(9);
@@ -60,7 +76,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         departamento1.setCosto(145.34);
         departamento1.setHabitaciones(2);
 
-        Departamento departamento2 = new Departamento();
+        departamento2 = new Departamento();
         departamento2.setDireccion("bb");
         departamento2.setArea(145.3f);
         departamento2.setPiso(9);
@@ -68,7 +84,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         departamento2.setCosto(145.34);
         departamento2.setHabitaciones(2);
 
-        Departamento departamento3 = new Departamento();
+        departamento3 = new Departamento();
         departamento3.setDireccion("ccc");
         departamento3.setArea(145.3f);
         departamento3.setPiso(9);
@@ -78,7 +94,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         entityManager.persist(departamento3);
 
 
-        Anfitrion anfitrion1 = new Anfitrion();
+        anfitrion1 = new Anfitrion();
         anfitrion1.setNombre("Anfitrion");
         anfitrion1.setApellido("Anfitrion");
         anfitrion1.setDepartamento(departamento1);
@@ -91,7 +107,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion1.setTipoEstudiante(TipoEstudiante.ANFITRION);
         entityManager.persist(anfitrion1);
 
-        Anfitrion anfitrion2 = new Anfitrion();
+        anfitrion2 = new Anfitrion();
         anfitrion2.setNombre("Anfitrion");
         anfitrion2.setApellido("Anfitrion");
         anfitrion2.setEmail("anfitrion2@gmail.com");
@@ -104,7 +120,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion2.setTipoEstudiante(TipoEstudiante.ANFITRION);
         entityManager.persist(anfitrion2);
 
-        Anfitrion anfitrion3 = new Anfitrion();
+        anfitrion3 = new Anfitrion();
         anfitrion3.setNombre("Anfitrion");
         anfitrion3.setApellido("Anfitrion");
         anfitrion3.setDepartamento(departamento3);
@@ -117,31 +133,31 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion3.setTipoEstudiante(TipoEstudiante.ANFITRION);
         entityManager.persist(anfitrion3);
 
-        Roomie roomie = new Roomie();
-        roomie.setNombre("roomie");
-        roomie.setApellido("roomie");
-        roomie.setEmail("roomie@gmail.com");
-        roomie.setTelefono("023456789");
-        roomie.setCarrera("a");
-        roomie.setFechaNacimiento(Date.from(Instant.now()));
-        roomie.setPassword("a");
-        roomie.setFechaCreacion(Date.from(Instant.now()));
-        roomie.setTipoEstudiante(TipoEstudiante.ROOMIE);
-        entityManager.persist(roomie);
+        roomie1 = new Roomie();
+        roomie1.setNombre("roomie");
+        roomie1.setApellido("roomie");
+        roomie1.setEmail("roomie@gmail.com");
+        roomie1.setTelefono("023456789");
+        roomie1.setCarrera("a");
+        roomie1.setFechaNacimiento(Date.from(Instant.now()));
+        roomie1.setPassword("a");
+        roomie1.setFechaCreacion(Date.from(Instant.now()));
+        roomie1.setTipoEstudiante(TipoEstudiante.ROOMIE);
+        entityManager.persist(roomie1);
 
-        Publicacion publicacion1 = new Publicacion();
+        publicacion1 = new Publicacion();
         publicacion1.setDescripcion("a");
         publicacion1.setAnfitrion(anfitrion1);
         publicacion1.setTitulo("A");
         entityManager.persist(publicacion1);
 
-        Publicacion publicacion2 = new Publicacion();
+        publicacion2 = new Publicacion();
         publicacion2.setDescripcion("a");
         publicacion2.setAnfitrion(anfitrion2);
         publicacion2.setTitulo("A");
         entityManager.persist(publicacion2);
 
-        Publicacion publicacion3 = new Publicacion();
+        publicacion3 = new Publicacion();
         publicacion3.setDescripcion("a");
         publicacion3.setAnfitrion(anfitrion3);
         publicacion3.setTitulo("A");
@@ -165,22 +181,16 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
 
     @Test
     public void testGetSolicitudByRoomieAndPublicacion(){
-        Anfitrion anfitrion1 = anfitrionRepository.findByEmail("anfitrion1@gmail.com").get();
-        Publicacion p = publicacionRepository.findByAnfitrion(anfitrion1).get();
-        Roomie roomie = roomieRepository.findByEmail("roomie@gmail.com").get();
         Solicitud solicitud1 = new Solicitud();
-        solicitud1.setPublicacion(p);
-        solicitud1.setRoomie(roomie);
+        solicitud1.setPublicacion(publicacion1);
+        solicitud1.setRoomie(roomie1);
         solicitudRepository.save(solicitud1);
-
-        Optional<Solicitud> solicitud = solicitudRepository.findByPublicacionIdAndRoomieEmail(p.getId(), "roomie@gmail.com");
-        assertTrue(solicitud.isPresent());
+        Solicitud s = solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacion1.getId(), "roomie@gmail.com").get();
+        assertEquals(s.getRoomie().getEmail(),"roomie@gmail.com");
+        assertEquals(s.getPublicacion().getId(),publicacion1.getId());
         }
 
-        //    @Test
-//    public void testSetAllSolicitudesCancelled(){
-//
-//    }
+
     }
 
 
