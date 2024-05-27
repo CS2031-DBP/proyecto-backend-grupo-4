@@ -15,7 +15,6 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
        "JOIN s.roomie r " +
        "JOIN s.publicacion p " +
        "WHERE p.id = :publicacion_id AND r.email = :roomie_email")
-
     Optional<Solicitud> findByPublicacionIdAndRoomieEmail(@Param("publicacion_id") Long publicacionId, @Param("roomie_email") String roomieEmail);
 
     @Query("SELECT s FROM Solicitud s " +

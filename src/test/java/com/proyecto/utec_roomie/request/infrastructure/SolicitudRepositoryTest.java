@@ -33,6 +33,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+
 public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
     private final SolicitudRepository solicitudRepository;
     private final TestEntityManager entityManager;
@@ -146,36 +147,42 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         publicacion3.setTitulo("A");
         entityManager.persist(publicacion3);
 
-        Solicitud solicitud1 = new Solicitud();
-        solicitud1.setPublicacion(publicacion1);
-        solicitud1.setRoomie(roomie);
-        entityManager.persist(solicitud1);
-
-        Solicitud solicitud2 = new Solicitud();
-        solicitud2.setPublicacion(publicacion2);
-        solicitud2.setRoomie(roomie);
-        entityManager.persist(solicitud2);
-
-        Solicitud solicitud3 = new Solicitud();
-        solicitud3.setPublicacion(publicacion3);
-        solicitud3.setRoomie(roomie);
-        entityManager.persist(solicitud3);
+//        Solicitud solicitud1 = new Solicitud();
+//        solicitud1.setPublicacion(publicacion1);
+//        solicitud1.setRoomie(roomie);
+//        entityManager.persist(solicitud1);
+//
+//        Solicitud solicitud2 = new Solicitud();
+//        solicitud2.setPublicacion(publicacion2);
+//        solicitud2.setRoomie(roomie);
+//        entityManager.persist(solicitud2);
+//
+//        Solicitud solicitud3 = new Solicitud();
+//        solicitud3.setPublicacion(publicacion3);
+//        solicitud3.setRoomie(roomie);
+//        entityManager.persist(solicitud3);
     }
 
     @Test
     public void testGetSolicitudByRoomieAndPublicacion(){
         Anfitrion anfitrion1 = anfitrionRepository.findByEmail("anfitrion1@gmail.com").get();
-        Optional<Publicacion> publicacion1 = publicacionRepository.findByAnfitrion(anfitrion1);
-        if(publicacion1.isPresent()) {
-            Optional<Solicitud> solicitud = solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacion1.get().getId(), "roomie@gmail.com");
-            assertTrue(solicitud.isPresent());
+        Publicacion p = publicacionRepository.findByAnfitrion(anfitrion1).get();
+        Roomie roomie = roomieRepository.findByEmail("roomie@gmail.com").get();
+        Solicitud solicitud1 = new Solicitud();
+        solicitud1.setPublicacion(p);
+        solicitud1.setRoomie(roomie);
+        solicitudRepository.save(solicitud1);
+
+        Optional<Solicitud> solicitud = solicitudRepository.findByPublicacionIdAndRoomieEmail(p.getId(), "roomie@gmail.com");
+        assertTrue(solicitud.isPresent());
         }
-        else{
-            throw new ResourceNotFoundException("no se encontro");
-        }
+
+        //    @Test
+//    public void testSetAllSolicitudesCancelled(){
+//
+//    }
     }
 
 
 
 
-}
