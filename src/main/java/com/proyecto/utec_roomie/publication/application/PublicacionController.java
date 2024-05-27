@@ -33,13 +33,13 @@ public class PublicacionController {
         return ResponseEntity.ok(publicacionService.getPublicaciones());
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     public ResponseEntity<Void> eliminarPublicacion() {
         publicacionService.eliminarPublicacion();
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{publicacion_id}")
+    @PutMapping
     public ResponseEntity<Void> updatePublicacion(@RequestBody PublicacionResponseDto publicacionResponseDto){
         publicacionService.updatePublicacion(publicacionResponseDto);
         return ResponseEntity.ok().build();

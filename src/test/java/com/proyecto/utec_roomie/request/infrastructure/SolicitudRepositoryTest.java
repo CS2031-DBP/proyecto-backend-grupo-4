@@ -75,6 +75,8 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         departamento3.setCosto(145.34);
         departamento3.setHabitaciones(2);
         entityManager.persist(departamento3);
+
+
         Anfitrion anfitrion1 = new Anfitrion();
         anfitrion1.setNombre("Anfitrion");
         anfitrion1.setApellido("Anfitrion");
