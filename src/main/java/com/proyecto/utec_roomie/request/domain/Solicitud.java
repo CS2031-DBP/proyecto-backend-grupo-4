@@ -17,12 +17,15 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(nullable = false)
+    private SolicitudStatus solicitudStatus = SolicitudStatus.PENDING;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "publicacion_id", nullable = false)
     private Publicacion publicacion;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "roomie_id", nullable = false)
     private Roomie roomie;

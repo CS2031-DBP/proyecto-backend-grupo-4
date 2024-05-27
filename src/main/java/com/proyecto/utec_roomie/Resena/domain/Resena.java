@@ -18,12 +18,12 @@ public class Resena {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Estudiante autor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receptor_id")
     private Estudiante receptor;
 
