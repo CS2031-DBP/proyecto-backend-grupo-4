@@ -22,13 +22,8 @@ public class Departamento {
     private Integer bano;
     @Column(nullable = false)
     private Float area;
-
-    private Float puntaje = 0.0f;
-
     @Column(nullable = false)
-    private Double latitude;
-    @Column(nullable = false)
-    private Double longitude;
+    private String direccion;
 
     @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "departamento")
     private Anfitrion anfitrion;

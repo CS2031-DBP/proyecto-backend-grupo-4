@@ -26,7 +26,7 @@ public class Publicacion {
     @JoinColumn(name = "anfitrion_id")
     private Anfitrion anfitrion;
 
-    @OneToMany
+    @OneToMany()
     private List<Solicitud> solicitudes;
 
 }

@@ -17,6 +17,6 @@ public class Anfitrion extends Estudiante {
     @JoinColumn(name = "departamento_id")
     private Departamento departamento;
 
-    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "anfitrion")
-    private Publicacion publicacion;
+//    @OneToOne(cascade = {CascadeType.REMOVE}, mappedBy = "anfitrion")
+//    private Publicacion publicacion;
 }

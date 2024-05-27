@@ -10,7 +10,6 @@ public class DepartamentoDto {
     private Long anfitrion_id;
     private Double costo;
     private Integer habitaciones;
-    private Float puntaje;
 
 
 }

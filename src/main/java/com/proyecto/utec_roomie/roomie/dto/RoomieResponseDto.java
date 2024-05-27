@@ -12,9 +12,9 @@ public class RoomieResponseDto {
 
     private String descripcion;
 
-    private String direccion;
-
     @Size(min = 9,max = 9)
     private String telefono;
+
+
 
 }

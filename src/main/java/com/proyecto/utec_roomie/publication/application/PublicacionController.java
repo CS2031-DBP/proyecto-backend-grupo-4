@@ -9,19 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/publicaciones")
 public class PublicacionController {
 
-    @Autowired
-    private PublicacionService publicacionService;
+    private final PublicacionService publicacionService;
 
-//    @PatchMapping("/{publicacion_id}")
-//    public ResponseEntity<Void> addSolicitud(@PathVariable Long publicacion_id, @RequestBody Solicitud solicitud) {
-//        publicacionService.anadirSolicitud(publicacion_id,solicitud);
-//        return ResponseEntity.ok().build();
-//    }
+    public PublicacionController(PublicacionService publicacionService) {
+        this.publicacionService = publicacionService;
+    }
+
 
     @PostMapping
     public ResponseEntity<Void> crearPublicacion(@RequestBody PublicacionRequestDto publicacionRequestDto) {
@@ -29,16 +28,20 @@ public class PublicacionController {
         return ResponseEntity.created(URI.create(uri)).build();
     }
 
-    @DeleteMapping("/{publicacion_id}")
-    public ResponseEntity<Void> eliminarPublicacion(@PathVariable Long publicacion_id) {
-        publicacionService.eliminarPublicacion(publicacion_id);
+    @GetMapping
+    public ResponseEntity<List<PublicacionResponseDto>> listarPublicaciones() {
+        return ResponseEntity.ok(publicacionService.getPublicaciones());
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<Void> eliminarPublicacion() {
+        publicacionService.eliminarPublicacion();
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{publicacion_id}")
-    public ResponseEntity<Void> updatePublicacion(@PathVariable Long publicacion_id,
-                                                  @RequestBody PublicacionResponseDto publicacionResponseDto){
-        publicacionService.updatePublicacion(publicacion_id,publicacionResponseDto);
+    @PutMapping("/{publicacion_id}")
+    public ResponseEntity<Void> updatePublicacion(@RequestBody PublicacionResponseDto publicacionResponseDto){
+        publicacionService.updatePublicacion(publicacionResponseDto);
         return ResponseEntity.ok().build();
     }
 

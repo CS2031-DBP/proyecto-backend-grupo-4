@@ -7,8 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PublicacionRequestDto {
-
-    private Long anfitrion_id;
     private String titulo;
     private String descripcion;
 

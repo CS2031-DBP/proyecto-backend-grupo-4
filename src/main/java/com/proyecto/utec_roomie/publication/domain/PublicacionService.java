@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -33,41 +35,82 @@ public class PublicacionService {
         this.anfitrionRepository = anfitrionRepository;
     }
 
+    public List<PublicacionResponseDto> getPublicaciones(){
+        List<Publicacion> publicaciones = publicacionRepository.findAll();
+        List<PublicacionResponseDto> publicacionesDto = new ArrayList<>();
+        for (Publicacion publicacion : publicaciones) {
+            PublicacionResponseDto publicacionDto = new PublicacionResponseDto();
+            publicacionDto.setTitulo(publicacion.getTitulo());
+            publicacionDto.setDescripcion(publicacion.getDescripcion());
+
+            publicacionDto.setNombreAnfitrion(publicacion.getAnfitrion().getNombre());
+            publicacionDto.setApellidoAnfitrion(publicacion.getAnfitrion().getApellido());
+
+            publicacionDto.setBano(publicacion.getAnfitrion().getDepartamento().getBano());
+            publicacionDto.setArea(publicacion.getAnfitrion().getDepartamento().getArea());
+            publicacionDto.setPiso(publicacion.getAnfitrion().getDepartamento().getPiso());
+            publicacionDto.setCosto(publicacion.getAnfitrion().getDepartamento().getCosto());
+            publicacionesDto.add(publicacionDto);
+        }
+        return publicacionesDto;
+    }
 
     public String crearPublicacion(PublicacionRequestDto publicacionRequestDto){
         String role = authorizationUtils.getCurrentUserRole();
-        String usermail = authorizationUtils.getCurrentUserEmail();
         if(!role.equals("ANFITRION")) {
             throw new UnauthorizeOperationException("no eres anfitrion");
         }
+
+        String usermail = authorizationUtils.getCurrentUserEmail();
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
-        if(anfitrion.getPublicacion() != null) {
+
+        if(publicacionRepository.findByAnfitrion(anfitrion).isPresent()) {
             throw new UniqueResourceAlreadyExists("Ya tiene una publicacion");
         }
-            Publicacion publicacion = modelMapper.map(publicacionRequestDto, Publicacion.class);
-            Publicacion savedPublicacion = publicacionRepository.save(publicacion);
-            anfitrion.setPublicacion(savedPublicacion);
-            return "/publicacion/" + savedPublicacion.getId();
+
+        Publicacion publicacion = modelMapper.map(publicacionRequestDto, Publicacion.class);
+        publicacion.setAnfitrion(anfitrion);
+
+        Publicacion savedPublicacion = publicacionRepository.save(publicacion);
+        return "/publicacion/" + savedPublicacion.getId();
         }
 
 
-    public void eliminarPublicacion(Long publicacionId) {
-        Optional<Publicacion> publicacion = publicacionRepository.findById(publicacionId);
+    public void eliminarPublicacion() {
+        String role = authorizationUtils.getCurrentUserRole();
+        if(!role.equals("ANFITRION")) {
+            throw new UnauthorizeOperationException("no eres anfitrion");
+        }
+        Anfitrion anfitrion = anfitrionRepository.findByEmail(authorizationUtils.getCurrentUserEmail()).get();
+        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrion(anfitrion);
         if (publicacion.isEmpty()) {
-            throw new ResourceNotFoundException("publicacion no existe p causa gaaaaaaa");
+            throw new ResourceNotFoundException("publicacion no existe");
         }
         publicacionRepository.delete(publicacion.get());
     }
 
-    public void updatePublicacion(Long publicacionId, PublicacionResponseDto publicacionResponseDto) {
-        Optional<Publicacion> p = publicacionRepository.findById(publicacionId);
+    public void updatePublicacion(PublicacionResponseDto publicacionResponseDto) {
+        String role = authorizationUtils.getCurrentUserRole();
+        if(!role.equals("ANFITRION")) {
+            throw new UnauthorizeOperationException("no eres anfitrion");
+        }
+        String usermail = authorizationUtils.getCurrentUserEmail();
+
+        Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
+
+        Optional<Publicacion> p = publicacionRepository.findByAnfitrion(anfitrion);
+
         if (p.isEmpty()) {
-            throw new ResourceNotFoundException("publicacion no existe p causa gaaaaaaa");
+            throw new ResourceNotFoundException("publicacion no existe");
         }
 
         Publicacion publicacion = p.get();
         publicacion.setTitulo(publicacionResponseDto.getTitulo());
         publicacion.setDescripcion(publicacionResponseDto.getDescripcion());
+        anfitrion.getDepartamento().setPiso(publicacionResponseDto.getPiso());
+        anfitrion.getDepartamento().setCosto(publicacionResponseDto.getCosto());
+        anfitrion.getDepartamento().setArea(publicacionResponseDto.getArea());
+        anfitrion.getDepartamento().setBano(publicacionResponseDto.getBano());
 
         publicacionRepository.save(publicacion);
     }

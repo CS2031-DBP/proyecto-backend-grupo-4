@@ -15,7 +15,7 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "publicacion_id", nullable = false)
     private Publicacion publicacion;
 

@@ -52,8 +52,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
     @BeforeEach
     public void setUp() {
         Departamento departamento1 = new Departamento();
-        departamento1.setLatitude(100.02);
-        departamento1.setLongitude(49.02);
+        departamento1.setDireccion("aa");
         departamento1.setArea(145.3f);
         departamento1.setPiso(9);
         departamento1.setBano(1);
@@ -61,8 +60,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         departamento1.setHabitaciones(2);
 
         Departamento departamento2 = new Departamento();
-        departamento2.setLatitude(50.02);
-        departamento2.setLongitude(20.02);
+        departamento2.setDireccion("bb");
         departamento2.setArea(145.3f);
         departamento2.setPiso(9);
         departamento2.setBano(1);
@@ -70,8 +68,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         departamento2.setHabitaciones(2);
 
         Departamento departamento3 = new Departamento();
-        departamento3.setLatitude(160.02);
-        departamento3.setLongitude(-16.02);
+        departamento3.setDireccion("ccc");
         departamento3.setArea(145.3f);
         departamento3.setPiso(9);
         departamento3.setBano(1);
@@ -175,6 +172,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
             throw new ResourceNotFoundException("no se encontro");
         }
     }
+
 
 
 
