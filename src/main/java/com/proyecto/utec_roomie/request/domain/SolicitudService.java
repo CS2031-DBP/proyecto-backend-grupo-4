@@ -53,12 +53,8 @@ public class SolicitudService {
     }
 
     public void crearSolicitud(Long publicacionId) {
-        String role = authorizationUtils.getCurrentUserRole();
         if(publicacionRepository.findById(publicacionId).isEmpty()) {
             throw new ResourceNotFoundException("No existe esa publicacion");
-        }
-        if (!role.equals("ROOMIE")) {
-        throw new UnauthorizeOperationException("No es roomie");
         }
         String usermail = authorizationUtils.getCurrentUserEmail();
         if(solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacionId, usermail).isPresent()){
@@ -132,6 +128,16 @@ public class SolicitudService {
 
         return arrendamientoRepository.save(arrendamiento);
     }
+
+    public void eliminarSolicitud(Long publicacionId) {
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Optional<Solicitud> s = solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacionId, usermail);
+        if (s.isEmpty()) {
+            throw new UniqueResourceAlreadyExists("No existe solicitud");
+        }
+        solicitudRepository.delete(s.get());
+    }
+
 }
 
 

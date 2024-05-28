@@ -23,7 +23,7 @@ public class SolicitudController
     }
 
     @PreAuthorize("hasRole('ROLE_ROOMIE')")
-    @PostMapping("/{publicacion_id}")
+    @PostMapping("/crear/{publicacion_id}")
     public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id){
         solicitudService.crearSolicitud(publicacion_id);
         return ResponseEntity.ok("Solicitud enviada!");
@@ -36,11 +36,18 @@ public class SolicitudController
     }
 
     @PreAuthorize("hasRole('ROLE_ANFITRION')")
-    @PostMapping("/{solicitud_id}")
+    @PostMapping("/aceptar/{solicitud_id}")
     public ResponseEntity<Arrendamiento> aceptarSolicitud(@PathVariable Long solicitud_id,
                                                           @RequestParam("fInicio") Date fecha_inicio,
                                           @RequestParam(value = "fFin",required = false) Date fecha_fin){
         return ResponseEntity.ok(solicitudService.aceptarSolicitud(solicitud_id,fecha_inicio,fecha_fin));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOMIE')")
+    @DeleteMapping("/eliminar/{publicacion_id}")
+    public ResponseEntity<Void> eliminarSolicitud(@PathVariable Long publicacion_id){
+        solicitudService.eliminarSolicitud(publicacion_id);
+        return ResponseEntity.ok().build();
     }
 
 }

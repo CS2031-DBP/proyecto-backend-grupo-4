@@ -54,7 +54,6 @@ public class PublicacionController {
             (@RequestParam(required = false) Integer bano,
              @RequestParam (required = false) Integer habitacion,
              @RequestParam (required = false) Double max_costo){
-
         return ResponseEntity.ok(publicacionService.getPublicacionesByQuery(bano, habitacion, max_costo));
     }
 
