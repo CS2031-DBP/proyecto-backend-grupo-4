@@ -29,10 +29,6 @@ public class DepartamentoService {
 
 
     public void anadirDepartamento(DepartamentoDto departamento) {
-        String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ANFITRION")) {
-            throw new UnauthorizeOperationException("no eres anfitrion");
-        }
         String usermail = authorizationUtils.getCurrentUserEmail();
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
 

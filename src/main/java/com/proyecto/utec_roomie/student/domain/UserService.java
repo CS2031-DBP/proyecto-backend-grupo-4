@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserRepository<Users> userRepository;
+    private UserRepository<User> userRepository;
 
     @Autowired
     private AnfitrionRepository anfitrionRepository;
@@ -22,26 +22,26 @@ public class UserService {
     @Autowired
     private RoomieRepository roomieRepository;
 
-    public Users findByEmail(String username, String tipo) {
-        Users users;
+    public User findByEmail(String username, String tipo) {
+        User user;
         if (tipo.equals("ROLE_ROOMIE"))
-            users = roomieRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Users not found"));
+            user = roomieRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         else
-            users = anfitrionRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Users not found"));
+            user = anfitrionRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return users;
+        return user;
     }
 
     @Bean(name = "UserDetailsService")
     public UserDetailsService userDetailsService() {
         return username -> {
-            Users users = userRepository
+            User user = userRepository
                     .findByEmail(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("Users not found"));
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             return org.springframework.security.core.userdetails.User.builder()
-                    .username(users.getUsername())
-                    .password(users.getPassword())
-                    .roles(users.getRolePrefix()+ users.getRole())
+                    .username(user.getUsername())
+                    .password(user.getPassword())
+                    .roles(user.getRole().name())
                     .build();
         };
     }

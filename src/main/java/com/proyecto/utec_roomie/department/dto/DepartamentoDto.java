@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class DepartamentoDto {
     private Double costo;
+    private Integer piso;
     private Integer habitaciones;
     private Integer bano;
     private Double area;

@@ -1,6 +1,6 @@
 package com.proyecto.utec_roomie.roomie.domain;
 
-import com.proyecto.utec_roomie.student.domain.Users;
+import com.proyecto.utec_roomie.student.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "roomie")
-public class Roomie extends Users {
+public class Roomie extends User {
 
 }

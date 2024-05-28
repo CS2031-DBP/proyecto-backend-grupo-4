@@ -1,7 +1,7 @@
 package com.proyecto.utec_roomie.auth.utils;
 
 
-import com.proyecto.utec_roomie.student.domain.Users;
+import com.proyecto.utec_roomie.student.domain.User;
 import com.proyecto.utec_roomie.student.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +24,7 @@ public class AuthorizationUtils {
 
         String username = userDetails.getUsername();
         String role = userDetails.getAuthorities().toArray()[0].toString();
-        Users student= userService.findByEmail(username, role);
+        User student= userService.findByEmail(username, role);
 
         return student.getId().equals(id);
     }
@@ -43,10 +43,6 @@ public class AuthorizationUtils {
     public String getCurrentUserRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println(userDetails.getUsername());
-        System.out.println(userDetails.getAuthorities());
-        System.out.println(userDetails.getAuthorities().toArray()[0].toString());
-
         return userDetails.getAuthorities().toArray()[0].toString();
     }
 

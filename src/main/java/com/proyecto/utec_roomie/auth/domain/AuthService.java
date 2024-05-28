@@ -1,7 +1,7 @@
 package com.proyecto.utec_roomie.auth.domain;
 
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
-import com.proyecto.utec_roomie.student.domain.Users;
+import com.proyecto.utec_roomie.student.domain.User;
 import com.proyecto.utec_roomie.student.domain.Role;
 import com.proyecto.utec_roomie.student.infrastructure.UserRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
@@ -21,13 +21,13 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
-    private final UserRepository<Users> userRepository;
+    private final UserRepository<User> userRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AuthService(UserRepository<Users> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
@@ -35,7 +35,7 @@ public class AuthService {
     }
 
     public JwtAuthResponse login(LoginReq req) {
-        Optional<Users> user;
+        Optional<User> user;
         user = userRepository.findByEmail(req.getEmail());
 
         if (user.isEmpty()) throw new UsernameNotFoundException("Email is not registered");
@@ -50,7 +50,7 @@ public class AuthService {
     }
 
     public JwtAuthResponse register(RegisterReq req){
-        Optional<Users> user = userRepository.findByEmail(req.getEmail());
+        Optional<User> user = userRepository.findByEmail(req.getEmail());
         if (user.isPresent()) throw new UserAlreadyExistException("Email is already registered");
 
         if(req.getIsAnfitrion()){
