@@ -11,24 +11,22 @@ import java.util.Optional;
 
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
 
-    @Query("SELECT s FROM Solicitud s " +
-       "JOIN s.roomie r " +
-       "JOIN s.publicacion p " +
-       "WHERE p.id = :publicacion_id AND r.email = :roomie_email")
+    @Query("select s from Solicitud s " +
+            "WHERE s.roomie.email = :roomie_email and s.publicacion.id = :publicacion_id" )
     Optional<Solicitud> findByPublicacionIdAndRoomieEmail(@Param("publicacion_id") Long publicacionId, @Param("roomie_email") String roomieEmail);
 
     @Query("SELECT s FROM Solicitud s " +
-       "JOIN s.publicacion p " +
-       "WHERE p.id = :publicacion_id")
+       "WHERE s.publicacion.id = :publicacion_id")
     List<Solicitud> findAllByPublicacionId(@Param("publicacion_id") Long publicacionId);
 
     @Query("SELECT s FROM Solicitud s " +
-       "JOIN s.roomie r " +
-       "WHERE r.email = :roomie_email")
-    List<Solicitud> findByRoomieId(@Param("roomie_email") String roomieEmail);
+       "WHERE s.roomie.email = :roomie_email")
+    List<Solicitud> findAllByRoomieId(@Param("roomie_email") String roomieEmail);
 
     @Modifying
     @Query("Update Solicitud s set s.solicitudStatus = com.proyecto.utec_roomie.request.domain.SolicitudStatus.CANCELLED " +
             "where s.publicacion.id =:publicacion_id ")
     void setAllSolicitudCancelledByPublicacionId(@Param("publicacion_id")Long publicacionId);
+
+
 }

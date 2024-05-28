@@ -1,8 +1,11 @@
 package com.proyecto.utec_roomie.host.application;
 
+import com.proyecto.utec_roomie.department.domain.Departamento;
+import com.proyecto.utec_roomie.department.dto.DepartamentoDto;
 import com.proyecto.utec_roomie.host.dto.AnfitrionResponseDto;
 import com.proyecto.utec_roomie.host.domain.AnfitrionService;
 import com.proyecto.utec_roomie.host.dto.AnfitrionRequestDto;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

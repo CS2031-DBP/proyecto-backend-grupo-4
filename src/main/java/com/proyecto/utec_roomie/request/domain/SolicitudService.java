@@ -10,7 +10,9 @@ import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.domain.PublicacionStatus;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
+import com.proyecto.utec_roomie.request.EmailService;
 import com.proyecto.utec_roomie.request.infrastructure.SolicitudRepository;
+import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,16 +30,20 @@ public class SolicitudService {
     private final PublicacionRepository publicacionRepository;
     private final AnfitrionRepository anfitrionRepository;
     private final ArrendamientoRepository arrendamientoRepository;
+    private final EmailService emailService;
 
     @Autowired
     public SolicitudService(AuthorizationUtils authorizationUtils, SolicitudRepository solicitudRepository
-                            , RoomieRepository roomieRepository, PublicacionRepository publicacionRepository, AnfitrionRepository anfitrionRepository, ArrendamientoRepository arrendamientoRepository) {
+                            , RoomieRepository roomieRepository, PublicacionRepository publicacionRepository,
+                            AnfitrionRepository anfitrionRepository, ArrendamientoRepository arrendamientoRepository,
+                            EmailService emailService) {
         this.authorizationUtils = authorizationUtils;
         this.solicitudRepository = solicitudRepository;
         this.roomieRepository = roomieRepository;
         this.publicacionRepository = publicacionRepository;
         this.anfitrionRepository = anfitrionRepository;
         this.arrendamientoRepository = arrendamientoRepository;
+        this.emailService = emailService;
     }
 
     public void crearSolicitud(Long publicacionId) {
@@ -52,10 +58,12 @@ public class SolicitudService {
         if(solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacionId, usermail).isPresent()){
             throw new UniqueResourceAlreadyExists("Ya existe solicitud");
         }
+        Roomie roomie = roomieRepository.findByEmail(usermail).get();
         Solicitud solicitud = new Solicitud();
-        solicitud.setRoomie(roomieRepository.findByEmail(usermail).get());
+        solicitud.setRoomie(roomie);
         solicitud.setPublicacion(publicacionRepository.findById(publicacionId).get());
         solicitudRepository.save(solicitud);
+        emailService.sendSimpleMessage(usermail,"Nueva solicitud creada!", roomie.getNombre(),roomie.getApellido());
     }
 
 
@@ -67,7 +75,7 @@ public class SolicitudService {
             return solicitudRepository.findAllByPublicacionId(publicacion_id);
         }
         if(role.equals("ROOMIE")) {
-            return solicitudRepository.findByRoomieId(usermail);
+            return solicitudRepository.findAllByRoomieId(usermail);
         }
         return solicitudRepository.findAll();
     }

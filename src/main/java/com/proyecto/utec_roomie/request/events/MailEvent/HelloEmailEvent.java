@@ -10,6 +10,7 @@ public class HelloEmailEvent {
     private String email;
     private String apellido;
     private String asunto;
+
     public HelloEmailEvent(String email,String nombre,String apellido) {
         this.nombre = nombre;
         this.email = email;

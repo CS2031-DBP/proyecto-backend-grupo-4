@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Service
-public class emailService {
+public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;

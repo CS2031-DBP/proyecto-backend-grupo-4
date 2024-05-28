@@ -64,7 +64,7 @@ public class PublicacionService {
         String usermail = authorizationUtils.getCurrentUserEmail();
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
 
-        if(publicacionRepository.findByAnfitrion(anfitrion).isPresent()) {
+        if(publicacionRepository.findByAnfitrionEmail(usermail).isPresent()) {
             throw new UniqueResourceAlreadyExists("Ya tiene una publicacion");
         }
 
@@ -81,8 +81,8 @@ public class PublicacionService {
         if(!role.equals("ANFITRION")) {
             throw new UnauthorizeOperationException("no eres anfitrion");
         }
-        Anfitrion anfitrion = anfitrionRepository.findByEmail(authorizationUtils.getCurrentUserEmail()).get();
-        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrion(anfitrion);
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrionEmail(usermail);
         if (publicacion.isEmpty()) {
             throw new ResourceNotFoundException("publicacion no existe");
         }
@@ -98,7 +98,7 @@ public class PublicacionService {
 
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
 
-        Optional<Publicacion> p = publicacionRepository.findByAnfitrion(anfitrion);
+        Optional<Publicacion> p = publicacionRepository.findByAnfitrionEmail(usermail);
 
         if (p.isEmpty()) {
             throw new ResourceNotFoundException("publicacion no existe");

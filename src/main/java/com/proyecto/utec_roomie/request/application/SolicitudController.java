@@ -32,8 +32,6 @@ public class SolicitudController
         return ResponseEntity.ok(solicitudService.getSolicitudes());
     }
 
-
-
     @PostMapping("/{solicitud_id}")
     public ResponseEntity<Arrendamiento> aceptarSolicitud(@PathVariable Long solicitud_id,
                                                           @RequestParam("fInicio") Date fecha_inicio,

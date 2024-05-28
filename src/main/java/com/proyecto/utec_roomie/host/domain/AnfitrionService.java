@@ -1,13 +1,13 @@
 package com.proyecto.utec_roomie.host.domain;
 
+import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
+import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
 import com.proyecto.utec_roomie.host.dto.AnfitrionResponseDto;
-import com.proyecto.utec_roomie.host.dto.AnfitrionRequestDto;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.department.domain.Departamento;
-import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
-import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +20,13 @@ public class AnfitrionService {
 
     private final AnfitrionRepository anfitrionRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
     @Autowired
-    public AnfitrionService(AnfitrionRepository anfitrionRepository, ModelMapper modelMapper){
+    public AnfitrionService(AnfitrionRepository anfitrionRepository, ModelMapper modelMapper, AuthorizationUtils authorizationUtils){
         this.anfitrionRepository = anfitrionRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public AnfitrionResponseDto getAnfitrion(Long anfitrionId) {
@@ -61,4 +63,14 @@ public class AnfitrionService {
         return a.get();
     }
 
+    public void anadirDepartamento(Departamento departamento) {
+        String role = authorizationUtils.getCurrentUserRole();
+        if(!role.equals("ANFITRION")){
+            throw new UnauthorizeOperationException("no eres anfitrion");
+        }
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
+        anfitrion.setDepartamento(departamento);
+        anfitrionRepository.save(anfitrion);
+    }
 }

@@ -73,7 +73,7 @@ public class PublicacionRepositoryTest {
     @Test
     public void testGetPublicacion(){
         Anfitrion anfitrion = anfitrionRepository.findByEmail("anfitrion1@gmail.com").get();
-        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrion(anfitrion);
+        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrionEmail("anfitrion1@gmail.com");
         assertTrue(publicacion.isPresent());
     }
 }
