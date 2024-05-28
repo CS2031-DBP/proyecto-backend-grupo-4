@@ -11,7 +11,7 @@ import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.domain.PublicacionStatus;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.EmailService;
-import com.proyecto.utec_roomie.request.infrastructure.SolicitudRepository;
+import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import org.springframework.beans.factory.annotation.Autowired;

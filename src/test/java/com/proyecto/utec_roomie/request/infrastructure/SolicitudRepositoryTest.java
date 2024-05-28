@@ -2,15 +2,14 @@ package com.proyecto.utec_roomie.request.infrastructure;
 
 import com.proyecto.utec_roomie.AbstractContainerBaseTest;
 import com.proyecto.utec_roomie.department.domain.Departamento;
-import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.domain.Solicitud;
+import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
-import com.proyecto.utec_roomie.student.domain.Estudiante;
 import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.time.Instant;
 import java.util.Date;
-import java.util.Optional;
 
 
 @DataJpaTest

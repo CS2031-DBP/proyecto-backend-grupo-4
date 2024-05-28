@@ -1,4 +1,4 @@
-package com.proyecto.utec_roomie.request.infrastructure;
+package com.proyecto.utec_roomie.request;
 
 import com.proyecto.utec_roomie.request.domain.Solicitud;
 import org.springframework.data.jpa.repository.JpaRepository;
