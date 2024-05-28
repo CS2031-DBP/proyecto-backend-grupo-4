@@ -38,6 +38,7 @@ public class PublicacionService {
     public List<PublicacionResponseDto> getPublicaciones(){
         List<Publicacion> publicaciones = publicacionRepository.findAll();
         List<PublicacionResponseDto> publicacionesDto = new ArrayList<>();
+
         for (Publicacion publicacion : publicaciones) {
             PublicacionResponseDto publicacionDto = new PublicacionResponseDto();
             publicacionDto.setTitulo(publicacion.getTitulo());
@@ -50,21 +51,17 @@ public class PublicacionService {
             publicacionDto.setArea(publicacion.getAnfitrion().getDepartamento().getArea());
             publicacionDto.setPiso(publicacion.getAnfitrion().getDepartamento().getPiso());
             publicacionDto.setCosto(publicacion.getAnfitrion().getDepartamento().getCosto());
+            publicacionDto.setHabitaciones(publicacion.getAnfitrion().getDepartamento().getHabitaciones());
             publicacionesDto.add(publicacionDto);
         }
         return publicacionesDto;
     }
 
     public String crearPublicacion(PublicacionRequestDto publicacionRequestDto){
-        String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ANFITRION")) {
-            throw new UnauthorizeOperationException("no eres anfitrion");
-        }
-
         String usermail = authorizationUtils.getCurrentUserEmail();
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
 
-        if(publicacionRepository.findByAnfitrion(anfitrion).isPresent()) {
+        if(publicacionRepository.findByAnfitrionEmail(usermail).isPresent()) {
             throw new UniqueResourceAlreadyExists("Ya tiene una publicacion");
         }
 
@@ -77,41 +74,47 @@ public class PublicacionService {
 
 
     public void eliminarPublicacion() {
-        String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ANFITRION")) {
-            throw new UnauthorizeOperationException("no eres anfitrion");
-        }
-        Anfitrion anfitrion = anfitrionRepository.findByEmail(authorizationUtils.getCurrentUserEmail()).get();
-        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrion(anfitrion);
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Optional<Publicacion> publicacion = publicacionRepository.findByAnfitrionEmail(usermail);
         if (publicacion.isEmpty()) {
-            throw new ResourceNotFoundException("publicacion no existe");
+            throw new ResourceNotFoundException("No tiene una publicacion");
         }
         publicacionRepository.delete(publicacion.get());
     }
 
-    public void updatePublicacion(PublicacionResponseDto publicacionResponseDto) {
-        String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ANFITRION")) {
-            throw new UnauthorizeOperationException("no eres anfitrion");
-        }
+    public void updatePublicacion(PublicacionRequestDto publicacionRequestDto) {
         String usermail = authorizationUtils.getCurrentUserEmail();
 
         Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
 
-        Optional<Publicacion> p = publicacionRepository.findByAnfitrion(anfitrion);
+        Optional<Publicacion> p = publicacionRepository.findByAnfitrionEmail(usermail);
 
         if (p.isEmpty()) {
             throw new ResourceNotFoundException("publicacion no existe");
         }
-
         Publicacion publicacion = p.get();
-        publicacion.setTitulo(publicacionResponseDto.getTitulo());
-        publicacion.setDescripcion(publicacionResponseDto.getDescripcion());
-        anfitrion.getDepartamento().setPiso(publicacionResponseDto.getPiso());
-        anfitrion.getDepartamento().setCosto(publicacionResponseDto.getCosto());
-        anfitrion.getDepartamento().setArea(publicacionResponseDto.getArea());
-        anfitrion.getDepartamento().setBano(publicacionResponseDto.getBano());
-
+        publicacion.setTitulo(publicacionRequestDto.getTitulo());
+        publicacion.setDescripcion(publicacionRequestDto.getDescripcion());
         publicacionRepository.save(publicacion);
+    }
+
+    public List<PublicacionResponseDto> getPublicacionesByQuery(Integer bano, Integer habitacion, Double maxCosto) {
+
+        List<Publicacion> publicacionList = publicacionRepository.findAllByBanoAndHabitacionAndMaxCosto(bano,habitacion,maxCosto);
+        List<PublicacionResponseDto> publicacionesDto = new ArrayList<>();
+        for (Publicacion publicacion : publicacionList) {
+            PublicacionResponseDto publicacionDto = new PublicacionResponseDto();
+            publicacionDto.setTitulo(publicacion.getTitulo());
+            publicacionDto.setDescripcion(publicacion.getDescripcion());
+            publicacionDto.setNombreAnfitrion(publicacion.getAnfitrion().getNombre());
+            publicacionDto.setApellidoAnfitrion(publicacion.getAnfitrion().getApellido());
+            publicacionDto.setPiso(publicacion.getAnfitrion().getDepartamento().getPiso());
+            publicacionDto.setBano(publicacion.getAnfitrion().getDepartamento().getBano());
+            publicacionDto.setArea(publicacion.getAnfitrion().getDepartamento().getArea());
+            publicacionDto.setCosto(publicacion.getAnfitrion().getDepartamento().getCosto());
+            publicacionDto.setHabitaciones(publicacion.getAnfitrion().getDepartamento().getHabitaciones());
+            publicacionesDto.add(publicacionDto);
+        }
+        return publicacionesDto;
     }
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bienvenido a Uber</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: whitesmoke;
+            background-color: #1f1d27;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: #333333;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(189, 121, 121, 0.5);
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+            height: auto;
+        }
+        h1 {
+            color: #396b9f;
+            font-size: 24px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #3b4eaf;
+            color: #013220;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+            border: none; /* Elimina cualquier borde por defecto */
+        }
+        .btn:hover {
+            background-color: #48389f;
+        }
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100%;
+                box-shadow: none;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="https://play-lh.googleusercontent.com/C8gA4VCN7-MIGDrGdRdabJfH-u81o-U6eSTgxlnUH77Amfle6wXvd45WIiTZzVPiwpHF" alt="Connect Logo" class="logo">
+    <h1>Bienvenida a nuestro aplicativo</h1>
+    <p>Hola!  </span> Bienvenido a nuestro aplicativo.</p>
+    <div>
+        <h2>Detalles del registro:</h2>
+        <ul>
+            <li>Nombre: <span th:text="${nombre}">Nombre del Roomie</span></li>
+            <li>Apellido: <span th:text="${apellido}">Apellido del Roomie</span></li>
+            <li>Fecha: <span th:text="${date}">Fecha de Registro</span></li>
+        </ul>
+    </div>
+    <p>Por favor, comparte tu ubicacion y cualquier duda escribenos comunicate con soporte tecnico.</p>
+    <a href="https://www.facebook.com/" class="btn">Ir al inicio</a>
+
+
+</div>
+</body>
+</html>
