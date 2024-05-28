@@ -1,7 +1,7 @@
 package com.proyecto.utec_roomie.host.domain;
 
 import com.proyecto.utec_roomie.department.domain.Departamento;
-import com.proyecto.utec_roomie.student.domain.User;
+import com.proyecto.utec_roomie.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

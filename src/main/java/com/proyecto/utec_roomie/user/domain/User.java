@@ -1,4 +1,4 @@
-package com.proyecto.utec_roomie.student.domain;
+package com.proyecto.utec_roomie.user.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

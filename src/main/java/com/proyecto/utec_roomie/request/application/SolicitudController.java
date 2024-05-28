@@ -5,6 +5,7 @@ import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
 import com.proyecto.utec_roomie.request.domain.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -21,17 +22,20 @@ public class SolicitudController
         this.solicitudService = solicitudService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ROOMIE')")
     @PostMapping("/{publicacion_id}")
     public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id){
         solicitudService.crearSolicitud(publicacion_id);
         return ResponseEntity.ok("Solicitud enviada!");
     }
 
-    @GetMapping()
+    @PreAuthorize("hasRole('ROLE_ANFITRION') or hasRole('ROLE_ROOOMIE')")
+    @GetMapping
     public ResponseEntity<List<SolicitudResponseDto>> getSolicitudes(){
         return ResponseEntity.ok(solicitudService.getSolicitudes());
     }
 
+    @PreAuthorize("hasRole('ROLE_ANFITRION')")
     @PostMapping("/{solicitud_id}")
     public ResponseEntity<Arrendamiento> aceptarSolicitud(@PathVariable Long solicitud_id,
                                                           @RequestParam("fInicio") Date fecha_inicio,

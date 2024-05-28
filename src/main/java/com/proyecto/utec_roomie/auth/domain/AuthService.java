@@ -1,9 +1,9 @@
 package com.proyecto.utec_roomie.auth.domain;
 
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
-import com.proyecto.utec_roomie.student.domain.User;
-import com.proyecto.utec_roomie.student.domain.Role;
-import com.proyecto.utec_roomie.student.infrastructure.UserRepository;
+import com.proyecto.utec_roomie.user.domain.User;
+import com.proyecto.utec_roomie.user.domain.Role;
+import com.proyecto.utec_roomie.user.infrastructure.UserRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.auth.dto.JwtAuthResponse;
 import com.proyecto.utec_roomie.auth.dto.LoginReq;

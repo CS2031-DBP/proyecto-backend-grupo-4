@@ -24,6 +24,7 @@ public class DepartamentoController {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('ROLE_ANFITRION') or hasRole('ROLE_ROOMIE')")
     @GetMapping
     public ResponseEntity<DepartamentoDto> getDepartamento(){
         return ResponseEntity.ok(departamentoService.getDepartamento());

@@ -1,6 +1,6 @@
 package com.proyecto.utec_roomie.Resena.domain;
 
-import com.proyecto.utec_roomie.student.domain.User;
+import com.proyecto.utec_roomie.user.domain.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;

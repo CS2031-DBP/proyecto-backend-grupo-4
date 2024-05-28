@@ -7,7 +7,7 @@ import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.infrastructure.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
-import com.proyecto.utec_roomie.student.domain.Role;
+import com.proyecto.utec_roomie.user.domain.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

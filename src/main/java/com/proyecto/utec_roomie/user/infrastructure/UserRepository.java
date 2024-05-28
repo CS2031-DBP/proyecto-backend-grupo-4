@@ -1,6 +1,6 @@
-package com.proyecto.utec_roomie.student.infrastructure;
+package com.proyecto.utec_roomie.user.infrastructure;
 
-import com.proyecto.utec_roomie.student.domain.User;
+import com.proyecto.utec_roomie.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

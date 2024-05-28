@@ -1,8 +1,8 @@
-package com.proyecto.utec_roomie.student.domain;
+package com.proyecto.utec_roomie.user.domain;
 
 
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
-import com.proyecto.utec_roomie.student.infrastructure.UserRepository;
+import com.proyecto.utec_roomie.user.infrastructure.UserRepository;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
