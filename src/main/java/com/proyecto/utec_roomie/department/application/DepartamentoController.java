@@ -1,6 +1,5 @@
 package com.proyecto.utec_roomie.department.application;
 
-import com.proyecto.utec_roomie.department.domain.Departamento;
 import com.proyecto.utec_roomie.department.domain.DepartamentoService;
 import com.proyecto.utec_roomie.department.dto.DepartamentoDto;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,8 @@ public class DepartamentoController {
         this.departamentoService = departamentoService;
     }
 
-    @PatchMapping
-    public ResponseEntity<Void> anadirDepartamento(@RequestBody Departamento departamento){
+    @PostMapping
+    public ResponseEntity<Void> anadirDepartamento(@RequestBody DepartamentoDto departamento){
         departamentoService.anadirDepartamento(departamento);
         return ResponseEntity.ok().build();
     }

@@ -2,18 +2,13 @@ package com.proyecto.utec_roomie.roomie.domain;
 
 import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
 import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
-import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
-import com.proyecto.utec_roomie.roomie.dto.RoomieRequestDto;
 import com.proyecto.utec_roomie.roomie.dto.RoomieResponseDto;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
-import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 @Service

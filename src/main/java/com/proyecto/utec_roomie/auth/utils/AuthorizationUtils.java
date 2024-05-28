@@ -1,8 +1,8 @@
 package com.proyecto.utec_roomie.auth.utils;
 
 
-import com.proyecto.utec_roomie.student.domain.Estudiante;
-import com.proyecto.utec_roomie.student.domain.EstudianteService;
+import com.proyecto.utec_roomie.student.domain.Users;
+import com.proyecto.utec_roomie.student.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,18 +10,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 
 
+
 @Component
 public class AuthorizationUtils {
 
     @Autowired
-    private EstudianteService estudianteService;
+    private UserService userService;
 
     public boolean isAdminOrResourceOwner(Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
         String username = userDetails.getUsername();
         String role = userDetails.getAuthorities().toArray()[0].toString();
-        Estudiante student = estudianteService.findByEmail(username, role);
+        Users student= userService.findByEmail(username, role);
 
         return student.getId().equals(id);
     }
@@ -40,6 +43,10 @@ public class AuthorizationUtils {
     public String getCurrentUserRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println(userDetails.getUsername());
+        System.out.println(userDetails.getAuthorities());
+        System.out.println(userDetails.getAuthorities().toArray()[0].toString());
+
         return userDetails.getAuthorities().toArray()[0].toString();
     }
 

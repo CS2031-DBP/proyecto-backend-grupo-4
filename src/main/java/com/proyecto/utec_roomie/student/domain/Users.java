@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Estudiante implements UserDetails {
+public class Users implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class Estudiante implements UserDetails {
     private String telefono;
 
     @Column(nullable = false)
-    private TipoEstudiante tipoEstudiante;
+    private Role role;
 
     @DecimalMax("5.0")
     @DecimalMin("0.0")
@@ -57,9 +57,12 @@ public class Estudiante implements UserDetails {
 
     private Date fechaActualizacion;
 
-   @Override
+    @Transient
+    private String rolePrefix = "ROLE_";
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(tipoEstudiante.name()));
+        return List.of(new SimpleGrantedAuthority(rolePrefix + role.name()));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.proyecto.utec_roomie.Resena.domain;
 
-import com.proyecto.utec_roomie.student.domain.Estudiante;
+import com.proyecto.utec_roomie.student.domain.Users;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -21,11 +21,11 @@ public class Resena {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Estudiante autor;
+    private Users autor;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receptor_id")
-    private Estudiante receptor;
+    private Users receptor;
 
     @Size(max=50)
     private String comentario;

@@ -28,7 +28,7 @@ public class DepartamentoService {
     }
 
 
-    public void anadirDepartamento(Departamento departamento) {
+    public void anadirDepartamento(DepartamentoDto departamento) {
         String role = authorizationUtils.getCurrentUserRole();
         if(!role.equals("ANFITRION")) {
             throw new UnauthorizeOperationException("no eres anfitrion");
@@ -39,8 +39,9 @@ public class DepartamentoService {
         if(anfitrion.getDepartamento() != null){
             throw new UniqueResourceAlreadyExists("departamento ya existe");
         }
-        departamentoRepository.save(departamento);
-        anfitrion.setDepartamento(departamento);
+        Departamento depa = modelMapper.map(departamento,Departamento.class);
+        departamentoRepository.save(depa);
+        anfitrion.setDepartamento(depa);
     }
 
     public DepartamentoDto getDepartamento() {

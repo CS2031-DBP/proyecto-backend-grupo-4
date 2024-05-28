@@ -1,7 +1,7 @@
 package com.proyecto.utec_roomie.request.application;
 
 import com.proyecto.utec_roomie.Arrendamiento.domain.Arrendamiento;
-import com.proyecto.utec_roomie.request.domain.Solicitud;
+import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
 import com.proyecto.utec_roomie.request.domain.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class SolicitudController
     }
 
     @GetMapping()
-    public ResponseEntity<List<Solicitud>> getSolicitudes(){
+    public ResponseEntity<List<SolicitudResponseDto>> getSolicitudes(){
         return ResponseEntity.ok(solicitudService.getSolicitudes());
     }
 
