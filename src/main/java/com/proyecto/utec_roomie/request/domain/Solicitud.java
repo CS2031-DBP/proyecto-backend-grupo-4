@@ -17,6 +17,8 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private String mensaje;
+
     @Column(nullable = false)
     private SolicitudStatus solicitudStatus = SolicitudStatus.PENDING;
 

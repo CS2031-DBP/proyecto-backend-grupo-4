@@ -1,6 +1,7 @@
 package com.proyecto.utec_roomie.request.application;
 
 import com.proyecto.utec_roomie.Arrendamiento.domain.Arrendamiento;
+import com.proyecto.utec_roomie.request.dto.SolicitudRequestDto;
 import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
 import com.proyecto.utec_roomie.request.domain.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,12 @@ public class SolicitudController
 
     @PreAuthorize("hasRole('ROLE_ROOMIE')")
     @PostMapping("/crear/{publicacion_id}")
-    public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id){
-        solicitudService.crearSolicitud(publicacion_id);
+    public ResponseEntity<String> crearSolicitud(@PathVariable Long publicacion_id, @RequestBody(required = false)SolicitudRequestDto mensaje){
+        solicitudService.crearSolicitud(publicacion_id,mensaje);
         return ResponseEntity.ok("Solicitud enviada!");
     }
 
-    @PreAuthorize("hasRole('ROLE_ANFITRION') or hasRole('ROLE_ROOOMIE')")
+    @PreAuthorize("hasRole('ROLE_ANFITRION') or hasRole('ROLE_ROOMIE')")
     @GetMapping
     public ResponseEntity<List<SolicitudResponseDto>> getSolicitudes(){
         return ResponseEntity.ok(solicitudService.getSolicitudes());
