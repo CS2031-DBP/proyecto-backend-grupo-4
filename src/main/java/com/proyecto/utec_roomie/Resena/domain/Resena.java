@@ -25,6 +25,7 @@ public class Resena {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receptor_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User receptor;
 
     @Size(max=50)

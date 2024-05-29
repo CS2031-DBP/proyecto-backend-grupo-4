@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private String carrera;
 
     @Email
+    @Pattern(regexp = "^[\\w.]+@utec\\.edu\\.pe$")
     @Column(nullable = false, unique = true)
     private String email;
 
