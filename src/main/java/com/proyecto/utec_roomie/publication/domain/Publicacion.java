@@ -14,8 +14,8 @@ public class Publicacion {
     @Id
     @GeneratedValue
     private Long id;
-
-    private PublicacionStatus publicacionStatus;
+    @Column(nullable = false)
+    private PublicacionStatus publicacionStatus = PublicacionStatus.AVAILABLE;
     @Column(nullable = false)
     private String titulo;
     @Column(nullable = false)
