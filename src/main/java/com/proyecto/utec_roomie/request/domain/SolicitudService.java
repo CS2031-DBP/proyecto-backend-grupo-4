@@ -12,6 +12,7 @@ import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.domain.PublicacionStatus;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.EmailService;
+import com.proyecto.utec_roomie.request.dto.SolicitudRequestDto;
 import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
 import com.proyecto.utec_roomie.request.infrastructure.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
@@ -21,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +52,7 @@ public class SolicitudService {
         this.modelMapper = modelMapper;
     }
 
-    public void crearSolicitud(Long publicacionId) {
+    public void crearSolicitud(Long publicacionId, SolicitudRequestDto solicitudRequestDto) {
         if(publicacionRepository.findById(publicacionId).isEmpty()) {
             throw new ResourceNotFoundException("No existe esa publicacion");
         }
@@ -64,6 +64,9 @@ public class SolicitudService {
         Solicitud solicitud = new Solicitud();
         solicitud.setRoomie(roomie);
         solicitud.setPublicacion(publicacionRepository.findById(publicacionId).get());
+        solicitud.setMensaje(solicitudRequestDto.getMensaje());
+        solicitud.setFecha_fin(solicitudRequestDto.getFecha_fin());
+        solicitud.setFecha_inicio(solicitudRequestDto.getFecha_inicio());
         solicitudRepository.save(solicitud);
         emailService.sendSimpleMessage(usermail,"Nueva solicitud creada!", roomie.getNombre(),roomie.getApellido());
     }
@@ -73,7 +76,7 @@ public class SolicitudService {
         List<SolicitudResponseDto> solicitudResponseDtoList = new ArrayList<>();
         String role = authorizationUtils.getCurrentUserRole();
         String usermail = authorizationUtils.getCurrentUserEmail();
-        if(role.equals("ANFITRION")) {
+        if(role.equals("ROLE_ANFITRION")) {
             Anfitrion anfitrion = anfitrionRepository.findByEmail(usermail).get();
             Long publicacion_id = publicacionRepository.findByAnfitrionEmail(usermail).get().getId();
             List<Solicitud> solicitudList = solicitudRepository.findAllByPublicacionId(publicacion_id);
@@ -83,27 +86,32 @@ public class SolicitudService {
                 solicitudResponseDto.setApellido_roomie(anfitrion.getApellido());
                 solicitudResponseDto.setNombre_roomie(solicitud.getRoomie().getNombre());
                 solicitudResponseDto.setApellido_roomie(solicitud.getRoomie().getApellido());
+                solicitudResponseDto.setStatus(solicitud.getSolicitudStatus());
+                solicitudResponseDto.setMensaje(solicitud.getMensaje());
                 solicitudResponseDtoList.add(solicitudResponseDto);
             }
         }
-        else if(role.equals("ROOMIE")) {
+        else if(role.equals("ROLE_ROOMIE")) {
             List<Solicitud> solicitudList = solicitudRepository.findAllByRoomieId(usermail);
             for (Solicitud solicitud : solicitudList) {
                 Anfitrion anfitrion = solicitud.getPublicacion().getAnfitrion();
                 SolicitudResponseDto solicitudResponseDto = new SolicitudResponseDto();
                 solicitudResponseDto.setNombre_anfitrion(anfitrion.getNombre());
-                solicitudResponseDto.setApellido_roomie(anfitrion.getApellido());
+                solicitudResponseDto.setApellido_anfitrion(anfitrion.getApellido());
                 solicitudResponseDto.setNombre_roomie(solicitud.getRoomie().getNombre());
                 solicitudResponseDto.setApellido_roomie(solicitud.getRoomie().getApellido());
+                solicitudResponseDto.setStatus(solicitud.getSolicitudStatus());
+                solicitudResponseDto.setMensaje(solicitud.getMensaje());
                 solicitudResponseDtoList.add(solicitudResponseDto);
+
             }
         }
         return solicitudResponseDtoList;
     }
 
-    public Arrendamiento aceptarSolicitud(Long solicitudId, Date fecha_inicio, Date fecha_fin) {
+    public Arrendamiento aceptarSolicitud(Long solicitudId) {
         String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ANFITRION")) {
+        if(!role.equals("ROLE_ANFITRION")) {
             throw new UnauthorizeOperationException("No es anfitrion");
         }
         String usermail = authorizationUtils.getCurrentUserEmail();
@@ -122,8 +130,8 @@ public class SolicitudService {
         Arrendamiento arrendamiento = new Arrendamiento();
         arrendamiento.setAnfitrion(anfitrionRepository.findByEmail(usermail).get());
         arrendamiento.setRoomie(solicitud.getRoomie());
-        arrendamiento.setFechaInicio(fecha_inicio);
-        arrendamiento.setFechaFin(fecha_fin);
+        arrendamiento.setFechaInicio(solicitud.getFecha_inicio());
+        arrendamiento.setFechaFin(solicitud.getFecha_fin());
 
 
         return arrendamientoRepository.save(arrendamiento);
