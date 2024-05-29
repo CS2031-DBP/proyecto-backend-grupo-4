@@ -45,6 +45,7 @@ public class User implements UserDetails {
     private String password;
 
     @Size(min = 9,max = 9)
+    @Column(unique = true)
     private String telefono;
 
     @Column(nullable = false)

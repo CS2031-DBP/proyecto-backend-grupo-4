@@ -25,8 +25,5 @@ public class Publicacion {
     @JoinColumn(name = "anfitrion_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Anfitrion anfitrion;
-//
-//    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "publicacion")
-//    private List<Solicitud> solicitudes;
 
 }
