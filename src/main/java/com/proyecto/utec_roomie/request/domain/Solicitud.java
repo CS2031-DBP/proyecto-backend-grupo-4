@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -18,6 +20,10 @@ public class Solicitud {
     private Long id;
 
     private String mensaje;
+
+    @Column(nullable = false)
+    private Date fecha_inicio;
+    private Date fecha_fin;
 
     @Column(nullable = false)
     private SolicitudStatus solicitudStatus = SolicitudStatus.PENDING;

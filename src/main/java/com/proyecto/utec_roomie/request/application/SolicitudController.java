@@ -38,10 +38,8 @@ public class SolicitudController
 
     @PreAuthorize("hasRole('ROLE_ANFITRION')")
     @PostMapping("/aceptar/{solicitud_id}")
-    public ResponseEntity<Arrendamiento> aceptarSolicitud(@PathVariable Long solicitud_id,
-                                                          @RequestParam("fInicio") Date fecha_inicio,
-                                          @RequestParam(value = "fFin",required = false) Date fecha_fin){
-        return ResponseEntity.ok(solicitudService.aceptarSolicitud(solicitud_id,fecha_inicio,fecha_fin));
+    public ResponseEntity<Arrendamiento> aceptarSolicitud(@PathVariable Long solicitud_id){
+        return ResponseEntity.ok(solicitudService.aceptarSolicitud(solicitud_id));
     }
 
     @PreAuthorize("hasRole('ROLE_ROOMIE')")

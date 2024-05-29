@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +52,7 @@ public class SolicitudService {
         this.modelMapper = modelMapper;
     }
 
-    public void crearSolicitud(Long publicacionId, SolicitudRequestDto mensaje) {
+    public void crearSolicitud(Long publicacionId, SolicitudRequestDto solicitudRequestDto) {
         if(publicacionRepository.findById(publicacionId).isEmpty()) {
             throw new ResourceNotFoundException("No existe esa publicacion");
         }
@@ -65,9 +64,9 @@ public class SolicitudService {
         Solicitud solicitud = new Solicitud();
         solicitud.setRoomie(roomie);
         solicitud.setPublicacion(publicacionRepository.findById(publicacionId).get());
-        if(mensaje!=null){
-            solicitud.setMensaje(mensaje.getMensaje());
-        }
+        solicitud.setMensaje(solicitudRequestDto.getMensaje());
+        solicitud.setFecha_fin(solicitudRequestDto.getFecha_fin());
+        solicitud.setFecha_inicio(solicitudRequestDto.getFecha_inicio());
         solicitudRepository.save(solicitud);
         emailService.sendSimpleMessage(usermail,"Nueva solicitud creada!", roomie.getNombre(),roomie.getApellido());
     }
@@ -110,7 +109,7 @@ public class SolicitudService {
         return solicitudResponseDtoList;
     }
 
-    public Arrendamiento aceptarSolicitud(Long solicitudId, Date fecha_inicio, Date fecha_fin) {
+    public Arrendamiento aceptarSolicitud(Long solicitudId) {
         String role = authorizationUtils.getCurrentUserRole();
         if(!role.equals("ROLE_ANFITRION")) {
             throw new UnauthorizeOperationException("No es anfitrion");
@@ -131,8 +130,8 @@ public class SolicitudService {
         Arrendamiento arrendamiento = new Arrendamiento();
         arrendamiento.setAnfitrion(anfitrionRepository.findByEmail(usermail).get());
         arrendamiento.setRoomie(solicitud.getRoomie());
-        arrendamiento.setFechaInicio(fecha_inicio);
-        arrendamiento.setFechaFin(fecha_fin);
+        arrendamiento.setFechaInicio(solicitud.getFecha_inicio());
+        arrendamiento.setFechaFin(solicitud.getFecha_fin());
 
 
         return arrendamientoRepository.save(arrendamiento);

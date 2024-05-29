@@ -19,7 +19,6 @@ import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,7 +80,7 @@ public class SolicitudControllerTest {
         Date fechaFin = new Date();
         Arrendamiento arrendamiento = new Arrendamiento();
 
-        Mockito.when(solicitudService.aceptarSolicitud(solicitudId, fechaInicio, fechaFin)).thenReturn(arrendamiento);
+        Mockito.when(solicitudService.aceptarSolicitud(solicitudId)).thenReturn(arrendamiento);
 
         mockMvc.perform(post("/solicitudes/{solicitud_id}", solicitudId)
                         .param("fInicio", String.valueOf(fechaInicio.getTime()))
