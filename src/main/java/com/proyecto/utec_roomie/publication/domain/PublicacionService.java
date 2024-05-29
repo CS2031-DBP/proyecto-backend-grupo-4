@@ -1,13 +1,12 @@
 package com.proyecto.utec_roomie.publication.domain;
 
 import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
-import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
 import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.dto.PublicacionRequestDto;
 import com.proyecto.utec_roomie.publication.dto.PublicacionResponseDto;
-import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
+import com.proyecto.utec_roomie.publication.infrastructure.PublicacionRepository;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,7 @@ import com.proyecto.utec_roomie.host.domain.Anfitrion;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.domain.PublicacionStatus;
-import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
+import com.proyecto.utec_roomie.publication.infrastructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.EmailService;
 import com.proyecto.utec_roomie.request.dto.SolicitudRequestDto;
 import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
