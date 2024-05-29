@@ -103,7 +103,6 @@ public class SolicitudService {
                 solicitudResponseDto.setStatus(solicitud.getSolicitudStatus());
                 solicitudResponseDto.setMensaje(solicitud.getMensaje());
                 solicitudResponseDtoList.add(solicitudResponseDto);
-
             }
         }
         return solicitudResponseDtoList;

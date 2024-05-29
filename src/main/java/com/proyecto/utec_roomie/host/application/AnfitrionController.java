@@ -26,7 +26,7 @@ public class AnfitrionController
 
     @PreAuthorize("hasRole('ROLE_ROOMIE')")
     @GetMapping("/{anfitrion_id}")
-    public ResponseEntity<AnfitrionResponseDto> getAnfitrionInfo(Long anfitrion_id){
+    public ResponseEntity<AnfitrionResponseDto> getAnfitrionById(Long anfitrion_id){
         return ResponseEntity.ok(anfitrionService.getAnfitrion(anfitrion_id));
     }
 
@@ -39,7 +39,7 @@ public class AnfitrionController
     }
 
     @PreAuthorize("hasRole('ROLE_ANFITRION')")
-    @DeleteMapping("/{anfitrion_id}")
+    @DeleteMapping()
     public ResponseEntity<Void> eliminarAnfitrion(){
         anfitrionService.eliminarAnfitrion();
         return ResponseEntity.ok().build();

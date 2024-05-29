@@ -24,6 +24,4 @@ public class ArrendamientoController {
         return ResponseEntity.ok(arrendamientoService.getArrendamiento());
     }
 
-
-
 }
