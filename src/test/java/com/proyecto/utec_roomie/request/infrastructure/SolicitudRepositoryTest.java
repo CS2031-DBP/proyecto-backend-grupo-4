@@ -7,6 +7,7 @@ import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.domain.Solicitud;
+import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import com.proyecto.utec_roomie.user.domain.Role;

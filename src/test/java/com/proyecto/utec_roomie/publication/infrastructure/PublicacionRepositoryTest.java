@@ -5,7 +5,7 @@ import com.proyecto.utec_roomie.host.domain.Anfitrion;
 import com.proyecto.utec_roomie.host.infrastructure.AnfitrionRepository;
 import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
-import com.proyecto.utec_roomie.request.infrastructure.SolicitudRepository;
+import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import com.proyecto.utec_roomie.user.domain.Role;
 import org.junit.jupiter.api.BeforeEach;
