@@ -5,6 +5,8 @@ import com.proyecto.utec_roomie.request.domain.SolicitudStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class SolicitudResponseDto {
@@ -16,6 +18,9 @@ public class SolicitudResponseDto {
     private String apellido_anfitrion;
 
     private String mensaje;
+
+    private Date fecha_inicio;
+    private Date fecha_fin;
 
     private SolicitudStatus status;
 
