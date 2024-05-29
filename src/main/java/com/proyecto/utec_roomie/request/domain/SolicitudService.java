@@ -87,6 +87,8 @@ public class SolicitudService {
                 solicitudResponseDto.setNombre_roomie(solicitud.getRoomie().getNombre());
                 solicitudResponseDto.setApellido_roomie(solicitud.getRoomie().getApellido());
                 solicitudResponseDto.setStatus(solicitud.getSolicitudStatus());
+                solicitudResponseDto.setFecha_fin(solicitud.getFecha_fin());
+                solicitudResponseDto.setFecha_inicio(solicitud.getFecha_inicio());
                 solicitudResponseDto.setMensaje(solicitud.getMensaje());
                 solicitudResponseDtoList.add(solicitudResponseDto);
             }
@@ -102,8 +104,9 @@ public class SolicitudService {
                 solicitudResponseDto.setApellido_roomie(solicitud.getRoomie().getApellido());
                 solicitudResponseDto.setStatus(solicitud.getSolicitudStatus());
                 solicitudResponseDto.setMensaje(solicitud.getMensaje());
+                solicitudResponseDto.setFecha_fin(solicitud.getFecha_fin());
+                solicitudResponseDto.setFecha_inicio(solicitud.getFecha_inicio());
                 solicitudResponseDtoList.add(solicitudResponseDto);
-
             }
         }
         return solicitudResponseDtoList;

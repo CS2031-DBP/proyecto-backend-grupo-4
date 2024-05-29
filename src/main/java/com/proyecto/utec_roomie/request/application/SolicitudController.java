@@ -5,6 +5,7 @@ import com.proyecto.utec_roomie.request.dto.SolicitudRequestDto;
 import com.proyecto.utec_roomie.request.dto.SolicitudResponseDto;
 import com.proyecto.utec_roomie.request.domain.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

@@ -34,7 +34,7 @@ public class PublicacionController {
 //        return ResponseEntity.ok(publicacionService.getPublicaciones());
 //    }
 
-    @PreAuthorize("hasRole('ROLE_ANFITRION') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ANFITRION')")
     @DeleteMapping
     public ResponseEntity<Void> eliminarPublicacion() {
         publicacionService.eliminarPublicacion();
