@@ -13,11 +13,10 @@ public class AnfitrionResponseDto {
     private String nombre;
     private String apellido;
 
+    private String carrera;
+
     private String descripcion;
 
     @Size(min = 9,max = 9)
     private String telefono;
-
-    @Valid
-    private DepartamentoDto departamentoDto;
 }

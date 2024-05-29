@@ -10,7 +10,7 @@ import com.proyecto.utec_roomie.request.domain.Solicitud;
 import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.domain.Roomie;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
-import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
+import com.proyecto.utec_roomie.user.domain.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +102,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion1.setFechaNacimiento(Date.from(Instant.now()));
         anfitrion1.setPassword("a");
         anfitrion1.setFechaCreacion(Date.from(Instant.now()));
-        anfitrion1.setTipoEstudiante(TipoEstudiante.ANFITRION);
+        anfitrion1.setRole(Role.ANFITRION);
         entityManager.persist(anfitrion1);
 
         anfitrion2 = new Anfitrion();
@@ -115,7 +115,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion2.setFechaNacimiento(Date.from(Instant.now()));
         anfitrion2.setPassword("a");
         anfitrion2.setFechaCreacion(Date.from(Instant.now()));
-        anfitrion2.setTipoEstudiante(TipoEstudiante.ANFITRION);
+        anfitrion2.setRole(Role.ANFITRION);
         entityManager.persist(anfitrion2);
 
         anfitrion3 = new Anfitrion();
@@ -128,7 +128,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         anfitrion3.setFechaNacimiento(Date.from(Instant.now()));
         anfitrion3.setPassword("a");
         anfitrion3.setFechaCreacion(Date.from(Instant.now()));
-        anfitrion3.setTipoEstudiante(TipoEstudiante.ANFITRION);
+        anfitrion3.setRole(Role.ANFITRION);
         entityManager.persist(anfitrion3);
 
         roomie1 = new Roomie();
@@ -140,7 +140,7 @@ public class SolicitudRepositoryTest extends AbstractContainerBaseTest {
         roomie1.setFechaNacimiento(Date.from(Instant.now()));
         roomie1.setPassword("a");
         roomie1.setFechaCreacion(Date.from(Instant.now()));
-        roomie1.setTipoEstudiante(TipoEstudiante.ROOMIE);
+        roomie1.setRole(Role.ROOMIE);
         entityManager.persist(roomie1);
 
         publicacion1 = new Publicacion();

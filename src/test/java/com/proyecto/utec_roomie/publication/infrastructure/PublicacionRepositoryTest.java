@@ -7,7 +7,7 @@ import com.proyecto.utec_roomie.publication.domain.Publicacion;
 import com.proyecto.utec_roomie.publication.infraestructure.PublicacionRepository;
 import com.proyecto.utec_roomie.request.SolicitudRepository;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
-import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
+import com.proyecto.utec_roomie.user.domain.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,7 @@ public class PublicacionRepositoryTest {
         anfitrion1.setFechaNacimiento(Date.from(Instant.now()));
         anfitrion1.setPassword("a");
         anfitrion1.setFechaCreacion(Date.from(Instant.now()));
-        anfitrion1.setTipoEstudiante(TipoEstudiante.ANFITRION);
+        anfitrion1.setRole(Role.ANFITRION);
         entityManager.persist(anfitrion1);
 
         Publicacion publicacion1 = new Publicacion();

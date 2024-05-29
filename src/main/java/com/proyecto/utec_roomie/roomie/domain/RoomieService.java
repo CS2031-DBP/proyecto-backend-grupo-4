@@ -2,18 +2,14 @@ package com.proyecto.utec_roomie.roomie.domain;
 
 import com.proyecto.utec_roomie.auth.utils.AuthorizationUtils;
 import com.proyecto.utec_roomie.exceptions.UnauthorizeOperationException;
-import com.proyecto.utec_roomie.student.domain.TipoEstudiante;
 import com.proyecto.utec_roomie.roomie.dto.RoomieRequestDto;
 import com.proyecto.utec_roomie.roomie.dto.RoomieResponseDto;
 import com.proyecto.utec_roomie.roomie.infrastructure.RoomieRepository;
 import com.proyecto.utec_roomie.exceptions.ResourceNotFoundException;
-import com.proyecto.utec_roomie.exceptions.UniqueResourceAlreadyExists;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -31,53 +27,44 @@ public class RoomieService {
     }
 
     public RoomieResponseDto getRoomie(Long roomie_id){
-        Optional<Roomie> r =  roomieRepository.findById(roomie_id);
-
+        Optional<Roomie> r = roomieRepository.findById(roomie_id);
         if(r.isEmpty()){
-            throw new ResourceNotFoundException("no existe roomie");
+            throw new ResourceNotFoundException("Roomie " + roomie_id + " not found");
         }
-
-        return modelMapper.map(r.get(), RoomieResponseDto.class);
+        Roomie roomie = r.get();
+        RoomieResponseDto roomieDto = new RoomieResponseDto();
+        roomieDto.setApellido(roomie.getApellido());
+        roomieDto.setNombre(roomie.getNombre());
+        roomieDto.setDescripcion(roomie.getDescripcion());
+        roomieDto.setTelefono(roomie.getTelefono());
+        return roomieDto;
     }
-
-    public Roomie getRoomieOwnInfo() {
-        String role = authorizationUtils.getCurrentUserRole();
-
-        if(!role.equals("ROOMIE")){
-            throw new UnauthorizeOperationException("unauthorized");
-        }
-        String usermail = authorizationUtils.getCurrentUserEmail();
-
-        return roomieRepository.findByEmail(usermail).get();
-    }
-
-    public void updateRoomie(RoomieResponseDto roomieResponseDto){
-        String role = authorizationUtils.getCurrentUserRole();
-        if(!role.equals("ROOMIE")){
-            throw new UnauthorizeOperationException("unauthorized");
-        }
+    public RoomieResponseDto getRoomieOwnInfo() {
         String usermail = authorizationUtils.getCurrentUserEmail();
         Roomie roomie = roomieRepository.findByEmail(usermail).get();
-        roomie.setNombre(roomieResponseDto.getNombre());
-        roomie.setApellido(roomieResponseDto.getApellido());
-        roomie.setDescripcion(roomieResponseDto.getDescripcion());
-        roomie.setTelefono(roomieResponseDto.getTelefono());
+        RoomieResponseDto roomieDto = new RoomieResponseDto();
+        roomieDto.setApellido(roomie.getApellido());
+        roomieDto.setNombre(roomie.getNombre());
+        roomieDto.setDescripcion(roomie.getDescripcion());
+        roomieDto.setTelefono(roomie.getTelefono());
+        return roomieDto;
+    }
 
+    public void updateRoomie(RoomieRequestDto dto){
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Roomie roomie = roomieRepository.findByEmail(usermail).get();
+        roomie.setDescripcion(dto.getDescripcion());
+        roomie.setTelefono(dto.getTelefono());
+        roomie.setCarrera(dto.getCarrera());
+        roomie.setPassword(dto.getContrasena());
         roomieRepository.save(roomie);
 
     }
 
-    public void deleteRoomie(Long roomie_id){
-        Roomie roomie = returnRoomie(roomie_id);
+    public void deleteRoomie(){
+        String usermail = authorizationUtils.getCurrentUserEmail();
+        Roomie roomie = roomieRepository.findByEmail(usermail).get();
         roomieRepository.delete(roomie);
-    }
-
-    private Roomie returnRoomie(Long roomie_id) {
-        Optional<Roomie> r = roomieRepository.findById(roomie_id);
-        if (r.isEmpty()) {
-            throw new ResourceNotFoundException("roomie no existe");
-        }
-        return r.get();
     }
 
 

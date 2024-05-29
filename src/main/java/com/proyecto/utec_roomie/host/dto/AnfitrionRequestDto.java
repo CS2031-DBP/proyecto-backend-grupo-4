@@ -12,20 +12,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class AnfitrionRequestDto {
-    @NotNull
-    @Size(min = 2)
-    private String nombre;
 
-    @NotNull
-    @Size(min = 2)
-    private String apellido;
-
-    @Email
-    private String email;
 
     private String descripcion;
-
-    private Date fechaNacimiento;
 
     private String carrera;
 
@@ -35,6 +24,4 @@ public class AnfitrionRequestDto {
     @Size(min = 9, max = 15)
     @NotNull
     private String telefono;
-
-    private Departamento departamento;
 }

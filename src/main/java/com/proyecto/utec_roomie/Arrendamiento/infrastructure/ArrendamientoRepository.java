@@ -12,4 +12,8 @@ public interface ArrendamientoRepository extends JpaRepository<Arrendamiento, Lo
     @Query("select a from Arrendamiento a " +
             "where a.roomie.id =:roomieId")
     Optional<Arrendamiento> findByRoomieId(@Param("roomieId") Long roomie_id);
+
+    @Query("select a from Arrendamiento a " +
+            "where a.roomie.email = :email or a.anfitrion.email=:email")
+    Optional<Arrendamiento> findByEmail(@Param("email") String email);
 }

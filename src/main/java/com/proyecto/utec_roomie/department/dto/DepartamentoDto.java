@@ -8,12 +8,9 @@ import lombok.Setter;
 @Setter
 public class DepartamentoDto {
     private Double costo;
-    @Column(nullable = false)
+    private Integer piso;
     private Integer habitaciones;
-    @Column(nullable = false)
     private Integer bano;
-    @Column(nullable = false)
-    private Float area;
-    @Column(nullable = false)
+    private Double area;
     private String direccion;
 }

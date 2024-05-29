@@ -7,6 +7,7 @@ import com.proyecto.utec_roomie.roomie.domain.RoomieService;
 import com.proyecto.utec_roomie.roomie.dto.RoomieResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -21,25 +22,28 @@ public class RoomieController {
         this.roomieService = roomieService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ANFITRION')")
     @GetMapping("/{roomie_id}")
     public ResponseEntity<RoomieResponseDto> getRoomieByID(@PathVariable Long roomie_id){
         return ResponseEntity.ok(roomieService.getRoomie(roomie_id));
     }
-
-    @GetMapping("/")
-    public ResponseEntity<Roomie> getOwnRoomieInfo(){
+    @PreAuthorize("hasRole('ROLE_ROOMIE')")
+    @GetMapping()
+    public ResponseEntity<RoomieResponseDto> getOwnRoomieInfo(){
         return ResponseEntity.ok(roomieService.getRoomieOwnInfo());
     }
 
+    @PreAuthorize("hasRole('ROLE_ROOMIE')")
     @PatchMapping("/")
-    public ResponseEntity<Void> updateRoomie(@RequestBody RoomieResponseDto roomieResponseDto){
-        roomieService.updateRoomie(roomieResponseDto);
+    public ResponseEntity<Void> updateRoomie(@RequestBody RoomieRequestDto roomieDatos){
+        roomieService.updateRoomie(roomieDatos);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{roomie_id}")
-    public ResponseEntity<Void> deleteRoomie(@PathVariable Long roomie_id){
-        roomieService.deleteRoomie(roomie_id);
+    @PreAuthorize("hasRole('ROLE_ROOMIE')")
+    @DeleteMapping()
+    public ResponseEntity<Void> deleteRoomie(){
+        roomieService.deleteRoomie();
         return ResponseEntity.ok().build();
     }
 

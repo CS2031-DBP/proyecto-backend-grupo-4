@@ -2,7 +2,9 @@ package com.proyecto.utec_roomie.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.proyecto.utec_roomie.student.domain.EstudianteService;
+import com.proyecto.utec_roomie.host.domain.AnfitrionService;
+import com.proyecto.utec_roomie.roomie.domain.RoomieService;
+import com.proyecto.utec_roomie.user.domain.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +25,13 @@ public class JwtService {
     private String secret;
 
     @Autowired
-    private EstudianteService estudianteService;
+    private UserService userService;
+
+    @Autowired
+    private AnfitrionService anfitrionService;
+
+    @Autowired
+    private RoomieService roomieService;
 
     public String extractUsername(String token) {
         return JWT.decode(token).getSubject();
@@ -47,9 +55,10 @@ public class JwtService {
 
         JWT.require(Algorithm.HMAC256(secret)).build().verify(token);
 
-        UserDetails userDetails = estudianteService.userDetailsService().loadUserByUsername(userEmail);
+        UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
+
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 userDetails, token, userDetails.getAuthorities());
         context.setAuthentication(authToken);

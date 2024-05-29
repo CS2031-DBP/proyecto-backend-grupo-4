@@ -1,4 +1,4 @@
-package com.proyecto.utec_roomie.student.domain;
+package com.proyecto.utec_roomie.user.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -16,7 +16,8 @@ import java.util.List;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Estudiante implements UserDetails {
+@Table(name="users")
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +47,7 @@ public class Estudiante implements UserDetails {
     private String telefono;
 
     @Column(nullable = false)
-    private TipoEstudiante tipoEstudiante;
+    private Role role;
 
     @DecimalMax("5.0")
     @DecimalMin("0.0")
@@ -57,9 +58,12 @@ public class Estudiante implements UserDetails {
 
     private Date fechaActualizacion;
 
-   @Override
+    @Transient
+    private String rolePrefix = "ROLE_";
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(tipoEstudiante.name()));
+        return List.of(new SimpleGrantedAuthority(rolePrefix + role.name()));
     }
 
     @Override
