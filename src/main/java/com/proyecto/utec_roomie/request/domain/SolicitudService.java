@@ -60,15 +60,16 @@ public class SolicitudService {
         if(solicitudRepository.findByPublicacionIdAndRoomieEmail(publicacionId, usermail).isPresent()){
             throw new UniqueResourceAlreadyExists("Ya existe solicitud");
         }
+        Publicacion publicacion = publicacionRepository.findById(publicacionId).get();
         Roomie roomie = roomieRepository.findByEmail(usermail).get();
         Solicitud solicitud = new Solicitud();
         solicitud.setRoomie(roomie);
-        solicitud.setPublicacion(publicacionRepository.findById(publicacionId).get());
+        solicitud.setPublicacion(publicacion);
         solicitud.setMensaje(solicitudRequestDto.getMensaje());
         solicitud.setFecha_fin(solicitudRequestDto.getFecha_fin());
         solicitud.setFecha_inicio(solicitudRequestDto.getFecha_inicio());
         solicitudRepository.save(solicitud);
-        emailService.sendSimpleMessage(usermail,"Nueva solicitud creada!", roomie.getNombre(),roomie.getApellido());
+        emailService.sendSolicitudMessage(publicacion.getAnfitrion().getEmail(),"Tienes una nueva solicitud!", roomie.getNombre(),roomie.getApellido(), solicitudRequestDto.getFecha_inicio(),solicitudRequestDto.getFecha_fin(),solicitudRequestDto.getMensaje());
     }
 
 

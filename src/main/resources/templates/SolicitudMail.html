@@ -68,18 +68,17 @@
 <body>
 <div class="container">
     <img src="https://play-lh.googleusercontent.com/C8gA4VCN7-MIGDrGdRdabJfH-u81o-U6eSTgxlnUH77Amfle6wXvd45WIiTZzVPiwpHF" alt="Connect Logo" class="logo">
-    <h1>Bienvenida a nuestro aplicativo</h1>
+    <h1>Has recibido una solicitud</h1>
     <div>
-        <h2>Detalles del registro:</h2>
+        <h2>Detalles de la Solicitud:</h2>
         <ul>
-            <li>Nombre: <span th:text="${nombre}">Nombre</span></li>
-            <li>Apellido: <span th:text="${apellido}">Apellido</span></li>
-            <li>Fecha: <span th:text="${date}">Fecha de Registro</span></li>
-            <li>Rol: <span th:text="${role}">Rol de estudiante</span></li>
+            <li>Nombre: <span th:text="${nombre}">Nombre del Roomie</span></li>
+            <li>Apellido: <span th:text="${apellido}">Apellido del Roomie</span></li>
+            <li>Fecha de Inicio: <span th:text="${fechaInicio}">Fecha de Inicio del Roomie</span></li>
+            <li>Fecha fin: <span th:text="${fechaFin}">Fecha Fin sugerida por Roomie</span></li>
         </ul>
     </div>
     <p>Por favor cualquier duda escribenos comunicate con soporte tecnico.</p>
-
 
 </div>
 </body>

@@ -1,6 +1,7 @@
 package com.proyecto.utec_roomie.auth.domain;
 
 import com.proyecto.utec_roomie.host.domain.Anfitrion;
+import com.proyecto.utec_roomie.request.EmailService;
 import com.proyecto.utec_roomie.user.domain.User;
 import com.proyecto.utec_roomie.user.domain.Role;
 import com.proyecto.utec_roomie.user.infrastructure.UserRepository;
@@ -25,13 +26,15 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final EmailService emailService;
 
     @Autowired
-    public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = new ModelMapper();
+        this.emailService = emailService;
     }
 
     public JwtAuthResponse login(LoginReq req) {
@@ -66,6 +69,8 @@ public class AuthService {
             userRepository.save(anfitrion);
             JwtAuthResponse response = new JwtAuthResponse();
             response.setToken(jwtService.generateToken(anfitrion));
+            emailService.sendRegisterMessage(anfitrion.getEmail(),"Gracias por registrarte!",
+                    anfitrion.getNombre(),anfitrion.getApellido(),anfitrion.getRole().name());
             return response;
         }
         else{
@@ -81,6 +86,8 @@ public class AuthService {
             userRepository.save(roomie);
             JwtAuthResponse response = new JwtAuthResponse();
             response.setToken(jwtService.generateToken(roomie));
+            emailService.sendRegisterMessage(roomie.getEmail(),"Gracias por registrarte!",
+                    roomie.getNombre(),roomie.getApellido(),roomie.getRole().name());
             return response;
         }
 
