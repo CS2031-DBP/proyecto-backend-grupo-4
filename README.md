@@ -16,4 +16,4 @@ tenemos como cosas interesantes:
 * buenos dtos
 * buen estructura de los service, repository y controller :D
 * utiliza autowired private final (fino)
-* 
+* no vean los commits por favor 
