@@ -17,4 +17,6 @@ tenemos como cosas interesantes:
 * buen estructura de los service, repository y controller :D
 * utiliza autowired private final (fino)
 * html personalizado para el envio de correos :D
-* no vean los commits por favor 
+* solo relaciones unidireccionales para ese extra performance (creo)
+* un bonito diagrama si lo pones en intellij :D
+* no vean los commits por favor xd
